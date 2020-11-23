@@ -1,0 +1,410 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DELL Technologies – Installation process of specific driver</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/</link><description>Recent content in Installation process of specific driver on DELL Technologies</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: PowerScale CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/</guid><description>
+&lt;h1 id="powerscale-csi">PowerScale CSI&lt;/h1>
+&lt;h2 id="installation-overview">Installation Overview&lt;/h2>
+&lt;p>Installation in a Kubernetes cluster should be done using the scripts within the &lt;code>dell-csi-helm-installer&lt;/code> directory.&lt;/p>
+&lt;p>The controller section of the Helm chart installs the following components in a Stateful Set:&lt;/p>
+&lt;ul>
+&lt;li>CSI Driver for PowerScale&lt;/li>
+&lt;li>Kubernetes Provisioner, which provisions the provisioning volumes&lt;/li>
+&lt;li>Kubernetes Attacher, which attaches the volumes to the containers&lt;/li>
+&lt;li>Kubernetes Snapshotter, which provides snapshot support&lt;/li>
+&lt;li>Kubernetes Resizer, which provides resize support&lt;/li>
+&lt;/ul>
+&lt;p>The node section of the Helm chart installs the following component in a Daemon Set:&lt;/p>
+&lt;ul>
+&lt;li>CSI Driver for PowerScale&lt;/li>
+&lt;li>Kubernetes Registrar, which handles the driver registration&lt;/li>
+&lt;/ul>
+&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;p>Before you install CSI Driver for PowerScale, verify the requirements that are mentioned in this topic are installed and configured.&lt;/p>
+&lt;h4 id="requirements">Requirements&lt;/h4>
+&lt;ul>
+&lt;li>Install Kubernetes.&lt;/li>
+&lt;li>Configure Docker service&lt;/li>
+&lt;li>Install Helm v3&lt;/li>
+&lt;li>Install volume snapshot components&lt;/li>
+&lt;li>Deploy PowerScale driver using Helm&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Note:&lt;/strong> There is no feature gate that needs to be set explicitly for csi drivers from 1.17 onwards. All the required feature gates are either beta/GA.&lt;/p>
+&lt;h2 id="configure-docker-service">Configure Docker service&lt;/h2>
+&lt;p>The mount propagation in Docker must be configured on all Kubernetes nodes before installing CSI Driver for PowerScale.&lt;/p>
+&lt;h3 id="procedure">Procedure&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Edit the service section of &lt;em>/etc/systemd/system/multi-user.target.wants/docker.service&lt;/em> file as follows:&lt;/p>
+&lt;pre>&lt;code>[Service]
+...
+MountFlags=shared
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>Restart the Docker service with systemctl daemon-reload and&lt;/p>
+&lt;pre>&lt;code>systemctl daemon-reload
+systemctl restart docker
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ol>
+&lt;h2 id="install-volume-snapshot-components">Install volume snapshot components&lt;/h2>
+&lt;h3 id="install-snapshot-beta-crds">Install Snapshot Beta CRDs&lt;/h3>
+&lt;p>To install snapshot crds specify &lt;code>--snapshot-crd&lt;/code> flag to driver installation script &lt;code>dell-csi-helm-installer/csi-install.sh&lt;/code> during driver installation&lt;/p>
+&lt;h3 id="install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster">&lt;a href="https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster">Install Common Snapshot Controller&lt;/a>, if not already installed for the cluster&lt;/h3>
+&lt;pre>&lt;code>```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+```
+&lt;/code>&lt;/pre>
+&lt;h2 id="install-csi-driver-for-powerscale">Install CSI Driver for PowerScale&lt;/h2>
+&lt;p>Install CSI Driver for PowerScale using this procedure.&lt;/p>
+&lt;p>&lt;em>Before you begin&lt;/em>&lt;/p>
+&lt;ul>
+&lt;li>You must clone the source &lt;a href="https://github.com/dell/csi-isilon">git repository&lt;/a>, ready for below procedure.&lt;/li>
+&lt;li>In the &lt;code>dell-csi-helm-installer&lt;/code> directory, there should be two shell scripts, &lt;em>csi-install.sh&lt;/em> and &lt;em>csi-uninstall.sh&lt;/em>. These scripts handle some of the pre
+and post operations that cannot be performed in the helm chart.&lt;/li>
+&lt;/ul>
+&lt;p>Procedure&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Collect information from the PowerScale Systems like IP address, username and password. Make a note of the value for these parameters as they must be entered in the secret.yaml
+and values file.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Copy the helm/csi-isilon/values.yaml into a new location with name say &lt;em>my-isilon-settings.yaml&lt;/em>, to customize settings for installation.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Edit &lt;em>my-isilon-settings.yaml&lt;/em> to set the following parameters for your installation:&lt;/p>
+&lt;p>The following table lists the primary configurable parameters of the PowerScale driver helm chart and their default values. More detailed information can be
+found in the &lt;a href="helm/csi-isilon/values.yaml">&lt;code>values.yaml&lt;/code>&lt;/a> file in this repository.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Required&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>isiIP&lt;/td>
+&lt;td>&amp;ldquo;isiIP&amp;rdquo; defines the HTTPs endpoint of the PowerScale OneFS API server&lt;/td>
+&lt;td>true&lt;/td>
+&lt;td>-&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>isiPort&lt;/td>
+&lt;td>&amp;ldquo;isiPort&amp;rdquo; defines the HTTPs port number of the PowerScale OneFS API server&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>8080&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>isiInsecure&lt;/td>
+&lt;td>&amp;ldquo;isiInsecure&amp;rdquo; specifies whether the PowerScale OneFS API server&amp;rsquo;s certificate chain and host name should be verified.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>true&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>isiAccessZone&lt;/td>
+&lt;td>The name of the access zone a volume can be created in&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>System&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>volumeNamePrefix&lt;/td>
+&lt;td>&amp;ldquo;volumeNamePrefix&amp;rdquo; defines a string prepended to each volume created by the CSI driver.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>k8s&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>enableDebug&lt;/td>
+&lt;td>Indicates whether debug level logs should be logged&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>true&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>verbose&lt;/td>
+&lt;td>Indicates what content of the OneFS REST API message should be logged in debug level logs&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>enableQuota&lt;/td>
+&lt;td>Indicates whether the provisioner should attempt to set (later unset) quota on a newly provisioned volume. This requires SmartQuotas to be enabled.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>true&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>noProbeOnStart&lt;/td>
+&lt;td>Indicates whether the controller/node should probe during initialization&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>false&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>isiPath&lt;/td>
+&lt;td>The default base path for the volumes to be created, this will be used if a storage class does not have the IsiPath parameter specified&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/ifs/data/csi&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>autoProbe&lt;/td>
+&lt;td>Enable auto probe.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>true&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>nfsV3&lt;/td>
+&lt;td>Specify whether to set the version to v3 when mounting an NFS export. If the value is &amp;ldquo;false&amp;rdquo;, then the default version supported will be used (i.e. the mount command&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>will not explicitly specify &amp;ldquo;-o vers=3&amp;rdquo; option)&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;em>&lt;strong>Storage Class parameters&lt;/strong>&lt;/em>&lt;/td>
+&lt;td>Following parameters are related to Storage Class&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>&amp;ldquo;storageClass.name&amp;rdquo; defines the name of the storage class to be defined.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>isilon&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>isDefault&lt;/td>
+&lt;td>&amp;ldquo;storageClass.isDefault&amp;rdquo; defines whether the primary storage class should be the default.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>true&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>reclaimPolicy&lt;/td>
+&lt;td>&amp;ldquo;storageClass.reclaimPolicy&amp;rdquo; defines what will happen when a volume is removed from the Kubernetes API. Valid values are &amp;ldquo;Retain&amp;rdquo; and &amp;ldquo;Delete&amp;rdquo;.&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>Delete&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accessZone&lt;/td>
+&lt;td>The Access Zone where the Volume would be created&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>System&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>AzServiceIP&lt;/td>
+&lt;td>Access Zone service IP if different from isiIP, specify here and refer in storageClass&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>rootClientEnabled&lt;/td>
+&lt;td>When a PVC is being created, it takes the storage class&amp;rsquo; value of &amp;ldquo;storageclass.rootClientEnabled&amp;rdquo;&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>false&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Note: User should provide all boolean values with double quotes. This applicable only for my-isilon-settings.yaml. Ex: &amp;ldquo;true&amp;rdquo;/&amp;ldquo;false&amp;rdquo;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create namespace&lt;/p>
+&lt;p>Run &lt;code>kubectl create namespace isilon&lt;/code> to create the isilon namespace. Specify the same namespace name while installing the driver.
+Note: CSI PowerScale also supports installation of driver in custom namespace.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create a secret file for the OneFS credentials by editing the secret.yaml present under helm directory. Replace the values for the username and password parameters.&lt;/p>
+&lt;p>Use the following command to convert username/password to base64 encoded string&lt;/p>
+&lt;pre>&lt;code>echo -n 'admin' | base64
+echo -n 'password' | base64
+&lt;/code>&lt;/pre>&lt;p>Run &lt;code>kubectl create -f secret.yaml&lt;/code> to create the secret.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Install OneFS CA certificates by following the instructions from next section, if you want to validate OneFS API server&amp;rsquo;s certificates. If not, create an empty secret using the
+following command and empty secret should be created for the successful CSI Driver for DELL EMC Powerscale installation.&lt;/p>
+&lt;pre>&lt;code>kubectl create -f emptysecret.yaml
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>Install CSI driver for PowerScale by following the instructions from &lt;a href="dell-csi-helm-installer/README.md">README&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="certificate-validation-for-onefs-rest-api-calls">Certificate validation for OneFS REST API calls&lt;/h2>
+&lt;p>The CSI driver exposes an install parameter &amp;lsquo;isiInsecure&amp;rsquo; which determines if the driver
+performs client-side verification of the OneFS certificates. The &amp;lsquo;isiInsecure&amp;rsquo; parameter is set to true by default and the driver does not verify the OneFS certificates.&lt;/p>
+&lt;p>If the isiInsecure is set to false, then the secret isilon-certs must contain the CA certificate for OneFS.
+If this secret is an empty secret, then the validation of the certificate fails, and the driver fails to start.&lt;/p>
+&lt;p>If the isiInsecure parameter is set to false and a previous installation attempt to create the empty secret, then this secret must be deleted and re-created using the CA certs.
+If the OneFS certificate is self-signed, then perform the following steps:&lt;/p>
+&lt;h3 id="procedure-1">Procedure&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>To fetch the certificate, run &lt;code>openssl s_client -showcerts -connect &amp;lt;OneFS
+IP&amp;gt; &amp;lt;/dev/null 2&amp;gt;/dev/null | openssl x509 -outform PEM &amp;gt; ca_cert.pem&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>To create the secret, run &lt;code>kubectl create secret generic isilon-certs --from-file=ca_cert.pem -n isilon&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>Docs: Unity CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/unity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/unity/</guid><description>
+&lt;h1 id="unity-csi">Unity CSI&lt;/h1>
+&lt;h2 id="test-deploying-a-simple-pod-with-unity-storage">Test deploying a simple pod with Unity storage&lt;/h2>
+&lt;p>Test the deployment workflow of a simple pod on Unity storage.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Verify Unity system for Host&lt;/strong>&lt;/p>
+&lt;p>After helm deployment &lt;code>CSI Driver for Node&lt;/code> will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
+Verify Unity system for new Hosts and Initiators&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Creating a volume:&lt;/strong>&lt;/p>
+&lt;p>Create a file (&lt;code>pvc.yaml&lt;/code>) with the following content.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p>
+&lt;pre>&lt;code>apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: testvolclaim1
+spec:
+accessModes:
+- ReadWriteOnce
+resources:
+requests:
+storage: 5Gi
+storageClassName: unity
+&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume&lt;/p>
+&lt;pre>&lt;code>kubectl create -f $PWD/pvc.yaml
+&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code>kubectl get pvc&lt;/code>.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for the new volume&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Attach the volume to Host&lt;/strong>&lt;/p>
+&lt;p>To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code>nginx.yaml&lt;/code> with the following content.&lt;/p>
+&lt;pre>&lt;code>apiVersion: v1
+kind: Pod
+metadata:
+name: nginx-pv-pod
+spec:
+containers:
+- name: task-pv-container
+image: nginx
+ports:
+- containerPort: 80
+name: &amp;quot;http-server&amp;quot;
+volumeMounts:
+- mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
+name: task-pv-storage
+volumes:
+- name: task-pv-storage
+persistentVolumeClaim:
+claimName: testvolclaim1
+&lt;/code>&lt;/pre>&lt;p>Execute the following command to mount the volume to kubernetes node&lt;/p>
+&lt;pre>&lt;code>kubectl create -f $PWD/nginx.yaml
+&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create Snapshot&lt;/strong>
+The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml.
+The following are the contents of snap.yaml.&lt;/p>
+&lt;p>&lt;em>snap.yaml&lt;/em>&lt;/p>
+&lt;pre>&lt;code>apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshot
+metadata:
+name: testvolclaim1-snap1
+namespace: default
+spec:
+volumeSnapshotClassName: unity-snapclass
+source:
+persistentVolumeClaimName: testvolclaim1
+&lt;/code>&lt;/pre>&lt;p>Execute the following command to create snapshot&lt;/p>
+&lt;pre>&lt;code>kubectl create -f $PWD/snap.yaml
+&lt;/code>&lt;/pre>&lt;p>The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>User can see the snapshots using &lt;code>kubectl get volumesnapshot&lt;/code>&lt;/li>
+&lt;li>Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li>
+&lt;li>You can see its definition using &lt;code>kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Delete Snapshot&lt;/strong>&lt;/p>
+&lt;p>Execute the following command to delete the snapshot&lt;/p>
+&lt;pre>&lt;code>kubectl get volumesnapshot
+kubectl delete volumesnapshot testvolclaim1-snap1
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>To Unattach the volume from Host&lt;/strong>&lt;/p>
+&lt;p>Delete the Nginx application to unattach the volume from host&lt;/p>
+&lt;p>&lt;code>kubectl delete -f nginx.yaml&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>To delete the volume&lt;/strong>&lt;/p>
+&lt;pre>&lt;code>kubectl get pvc
+kubectl delete pvc testvolclaim1
+kubectl get pvc
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Volume Expansion&lt;/strong>&lt;/p>
+&lt;p>To expand a volume, execute the following command to edit the pvc:&lt;/p>
+&lt;pre>&lt;code>kubectl edit pvc pvc-name
+&lt;/code>&lt;/pre>&lt;p>Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p>
+&lt;pre>&lt;code>spec:
+accessModes:
+- ReadWriteOnce
+resources:
+requests:
+storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create Volume Clone&lt;/strong>&lt;/p>
+&lt;p>Create a file (&lt;code>clonepvc.yaml&lt;/code>) with the following content.&lt;/p>
+&lt;pre>&lt;code>apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: clone-pvc
+spec:
+accessModes:
+- ReadWriteOnce
+resources:
+requests:
+storage: 5Gi
+dataSource:
+kind: PersistentVolumeClaim
+name: source-pvc
+storageClassName: unity
+&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
+&lt;pre>&lt;code>kubectl create -f $PWD/clonepvc.yaml
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of clone pvc must be equal to size of source pvc.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, user cannot expand cloned pvc.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Create Volume From Snapshot&lt;/strong>&lt;/p>
+&lt;p>Create a file (&lt;code>pvcfromsnap.yaml&lt;/code>) with the following content.&lt;/p>
+&lt;pre>&lt;code>apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: pvcfromsnap
+spec:
+accessModes:
+- ReadWriteOnce
+resources:
+requests:
+storage: 5Gi
+dataSource:
+kind: VolumeSnapshot
+name: source-snapshot
+apiGroup: snapshot.storage.k8s.io
+storageClassName: unity
+&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
+&lt;pre>&lt;code>kubectl create -f $PWD/pvcfromsnap.yaml
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>
