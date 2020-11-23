@@ -1,10 +1,78 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DELL Technologies – Product Description</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/</link><description>Recent content in Product Description on DELL Technologies</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://sakshimakkar.github.io/hugo1/docs/product-details/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: PowerFlex CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</guid><description>
-&lt;h1 id="powerflex-csi">PowerFlex CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p></description></item><item><title>Docs: PowerScale CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</guid><description>
-&lt;h1 id="powerscale-csi">PowerScale CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p></description></item><item><title>Docs: PowerStore CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</guid><description>
-&lt;h1 id="powerstore-csi">PowerStore CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p></description></item><item><title>Docs: Unity CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</guid><description>
-&lt;h1 id="unity-csi">Unity CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p>
-&lt;p>&lt;img src="../../assets/img/unity_architecture.png" alt="Unity Architecture">&lt;/p></description></item></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DELL Technologies – Product Description</title>
+    <link>https://sakshimakkar.github.io/hugo1/docs/product-details/</link>
+    <description>Recent content in Product Description on DELL Technologies</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="https://sakshimakkar.github.io/hugo1/docs/product-details/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: PowerFlex CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerflex-csi&#34;&gt;PowerFlex CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: PowerScale CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerscale-csi&#34;&gt;PowerScale CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: PowerStore CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerstore-csi&#34;&gt;PowerStore CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Unity CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;unity-csi&#34;&gt;Unity CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../assets/img/unity_architecture.png&#34; alt=&#34;Unity Architecture&#34;&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

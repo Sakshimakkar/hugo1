@@ -1,1082 +1,1227 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DELL Technologies – Documentation</title><link>https://sakshimakkar.github.io/hugo1/docs/</link><description>Recent content in Documentation on DELL Technologies</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://sakshimakkar.github.io/hugo1/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Installation using Common helm Installer</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/helm/</guid><description>
-&lt;h2 id="installation-scripts-and-readmemd-files">Installation scripts and README.md files&lt;/h2>
-&lt;p>The scripts and documentation are located within the &lt;a href="installer">installer&lt;/a> directory. These scripts are designed
-to be placed within the CSI Driver repos in a directory called &lt;code>/dell-csi-helm-installer&lt;/code> and require the driver helm chart
-to be located within the &lt;code>/helm&lt;/code> directory of the same repo.&lt;/p>
-&lt;h2 id="copying-the-scripts-to-target-driver-repos">Copying the scripts to target driver repos&lt;/h2>
-&lt;p>A helper script is available that will copy the common installer scripts and docuemtnation to each driver. This script can be found at &lt;code>util/update-driver.sh&lt;/code>
-and will perform the following steps for each driver:&lt;/p>
-&lt;ul>
-&lt;li>Clone the driver repo&lt;/li>
-&lt;li>Either checkout or create a branch for the changes to be applied to. If the user supplied branch name exists, it will be used. If it does not exist,
-one will be created.&lt;/li>
-&lt;li>Copy the common installer scripts to the target branch&lt;/li>
-&lt;li>Copy the documentation to the target branch. While copying, it will substitute:&lt;/li>
-&lt;li>The driver arrays formal name (PowerMax, PowerFlex, PowerStore, PowerScale, Unity) for any text matching __PROPERPRODUCTNAME__&lt;/li>
-&lt;li>The driver arrays informal name, always in lower case (powermax, vxflexos, powerstore, isilon, unity) for text matching __LOWERPRODUCTNAME__&lt;/li>
-&lt;li>After each file is copied, a &lt;code>git diff&lt;/code> will be performed so the user can inspect the changes and validate them&lt;/li>
-&lt;li>Once all files are copied, the files will be added to a &lt;code>git commit&lt;/code> with a commit message that has been supplied by the user.&lt;/li>
-&lt;li>At this stage, if there are any changes, the user will be prompted if they would like to &lt;code>git push&lt;/code> the changes to the git remote&lt;/li>
-&lt;li>If the &lt;code>git push&lt;/code> is successful, the script can automatically create a PR in the target repository, if one does not exist. If the user elects to not create a PR, one can be created manually.&lt;/li>
-&lt;/ul>
-&lt;p>A video demonstrating the use of the &lt;code>util/update-driver.sh&lt;/code> script has been made, It can be accessed (Passcode: ftju8Np*) at &lt;a href="https://Dell.zoom.us/rec/share/qAOiNw3PSy1TtHBuzI9R6hN3W1PfZr_w8rKVk5X8Zg1axQqjYNYKG89mabbIkeef.9pLpkZfdJ3kEGKq4">https://Dell.zoom.us/rec/share/qAOiNw3PSy1TtHBuzI9R6hN3W1PfZr_w8rKVk5X8Zg1axQqjYNYKG89mabbIkeef.9pLpkZfdJ3kEGKq4&lt;/a>&lt;/p>
-&lt;p>This script will create a temporary working directory that must be manually cleaned up. The location of this directory will be displayed at the end of the script.&lt;/p>
-&lt;p>Help is available for this script&lt;/p>
-&lt;pre>&lt;code>[dell-csi-helm-installer]# update-driver.sh -h
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DELL Technologies – Documentation</title>
+    <link>https://sakshimakkar.github.io/hugo1/docs/</link>
+    <description>Recent content in Documentation on DELL Technologies</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="https://sakshimakkar.github.io/hugo1/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Installation using Common helm Installer</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/getting-started/helm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/helm/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;installation-scripts-and-readmemd-files&#34;&gt;Installation scripts and README.md files&lt;/h2&gt;
+&lt;p&gt;The scripts and documentation are located within the &lt;a href=&#34;installer&#34;&gt;installer&lt;/a&gt; directory. These scripts are designed
+to be placed within the CSI Driver repos in a directory called &lt;code&gt;/dell-csi-helm-installer&lt;/code&gt; and require the driver helm chart
+to be located within the &lt;code&gt;/helm&lt;/code&gt; directory of the same repo.&lt;/p&gt;
+&lt;h2 id=&#34;copying-the-scripts-to-target-driver-repos&#34;&gt;Copying the scripts to target driver repos&lt;/h2&gt;
+&lt;p&gt;A helper script is available that will copy the common installer scripts and docuemtnation to each driver. This script can be found at &lt;code&gt;util/update-driver.sh&lt;/code&gt;
+and will perform the following steps for each driver:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Clone the driver repo&lt;/li&gt;
+&lt;li&gt;Either checkout or create a branch for the changes to be applied to. If the user supplied branch name exists, it will be used. If it does not exist,
+one will be created.&lt;/li&gt;
+&lt;li&gt;Copy the common installer scripts to the target branch&lt;/li&gt;
+&lt;li&gt;Copy the documentation to the target branch. While copying, it will substitute:&lt;/li&gt;
+&lt;li&gt;The driver arrays formal name (PowerMax, PowerFlex, PowerStore, PowerScale, Unity) for any text matching __PROPERPRODUCTNAME__&lt;/li&gt;
+&lt;li&gt;The driver arrays informal name, always in lower case (powermax, vxflexos, powerstore, isilon, unity) for text matching __LOWERPRODUCTNAME__&lt;/li&gt;
+&lt;li&gt;After each file is copied, a &lt;code&gt;git diff&lt;/code&gt; will be performed so the user can inspect the changes and validate them&lt;/li&gt;
+&lt;li&gt;Once all files are copied, the files will be added to a &lt;code&gt;git commit&lt;/code&gt; with a commit message that has been supplied by the user.&lt;/li&gt;
+&lt;li&gt;At this stage, if there are any changes, the user will be prompted if they would like to &lt;code&gt;git push&lt;/code&gt; the changes to the git remote&lt;/li&gt;
+&lt;li&gt;If the &lt;code&gt;git push&lt;/code&gt; is successful, the script can automatically create a PR in the target repository, if one does not exist. If the user elects to not create a PR, one can be created manually.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A video demonstrating the use of the &lt;code&gt;util/update-driver.sh&lt;/code&gt; script has been made, It can be accessed (Passcode: ftju8Np*) at &lt;a href=&#34;https://Dell.zoom.us/rec/share/qAOiNw3PSy1TtHBuzI9R6hN3W1PfZr_w8rKVk5X8Zg1axQqjYNYKG89mabbIkeef.9pLpkZfdJ3kEGKq4&#34;&gt;https://Dell.zoom.us/rec/share/qAOiNw3PSy1TtHBuzI9R6hN3W1PfZr_w8rKVk5X8Zg1axQqjYNYKG89mabbIkeef.9pLpkZfdJ3kEGKq4&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This script will create a temporary working directory that must be manually cleaned up. The location of this directory will be displayed at the end of the script.&lt;/p&gt;
+&lt;p&gt;Help is available for this script&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[dell-csi-helm-installer]# update-driver.sh  -h
 Help for update-driver.sh
 This script will copy the Common Helm Installer scripts to a branch within each driver and push them to the remote
+
 Usage: update-driver.sh options...
---directory[=]&amp;lt;directory&amp;gt; Directory to copy files from.
-Default is &amp;quot;/dell/git/dell-csi-helm-installer/installer&amp;quot;
---branch[=]&amp;lt;branch&amp;gt; Branch to copy to. This branch will be created if it does not exist at the remote.
-Default is &amp;quot;feature/update-common-installer-scripts&amp;quot;
---commit[=]&amp;lt;commit message&amp;gt; Git commit message.
-Default is &amp;quot;Addressing installation review comments across all drivers&amp;quot;
---assume-yes Assume 'yes' for any questions. Default is not to assume this.
--h Help
-&lt;/code>&lt;/pre></description></item><item><title>Docs: Installation using Operator</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/operator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/operator/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>&lt;code>dell-csi-operator&lt;/code> is a Kubernetes operator which can be used to install and manage various CSI Drivers provided by Dell EMC for different storage arrays.&lt;/p>
-&lt;p>It is built, deployed and tested using the toolset provided by Operator &lt;a href="https://github.com/operator-framework">framework&lt;/a> which include:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/operator-framework/operator-sdk">operator-sdk&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/operator-framework/operator-lifecycle-manager">operator-lifecycle-manager&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/operator-framework/operator-registry">operator-registry&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;p>Note - &lt;strong>operator-sdk-vv1.18.2-x86_64-linux-gnu&lt;/strong> has been used to build the &lt;code>dell-csi-operator&lt;/code> and is available at the root of the repository&lt;/p>
-&lt;h2 id="custom-resource-definitions">Custom Resource Definitions&lt;/h2>
-&lt;p>&lt;code>dell-csi-operator&lt;/code> manages a set of &lt;a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">Custom Resource Definitions&lt;/a> (CRDs)&lt;br>
-These CRDs represent a specific CSI Driver installation and are part of the API group &lt;code>storage.dell.com&lt;/code>&lt;br>
-The current set of CRDs managed by the &lt;code>dell-csi-operator&lt;/code> are:&lt;/p>
-&lt;ul>
-&lt;li>CSIUnity&lt;/li>
-&lt;li>CSIIsilon&lt;/li>
-&lt;li>CSIVXFlexOS&lt;/li>
-&lt;li>CSIPowerStore&lt;/li>
-&lt;li>CSIPowerMax&lt;/li>
-&lt;li>CSIPowerMaxRevProxy&lt;/li>
-&lt;/ul>
-&lt;h2 id="controllers">Controllers&lt;/h2>
-&lt;p>&lt;code>dell-csi-operator&lt;/code> utilizes Kubernetes &lt;a href="https://github.com/kubernetes-sigs/controller-runtime">controller runtime&lt;/a> libraries for building controllers which
-run as part of the Operator deployment.&lt;br>
-These controllers watch for any requests to create/modify/delete instances of the Custom Resource Definitions (CRDs) and handle the &lt;a href="https://godoc.org/sigs.k8s.io/controller-runtime/pkg/reconcile">reconciliation&lt;/a>
-of these requests.&lt;/p>
-&lt;p>Each instance of a CRD is called a Custom Resource (CR) and can be managed by a client like &lt;code>kubectl&lt;/code> in the same way a native
-Kubernetes resource is managed.&lt;br>
-When you create a Custom Resource, then the corresponding Controller will create the Kubernetes objects required for the driver installation.&lt;/p>
-&lt;p>This includes:&lt;/p>
-&lt;ul>
-&lt;li>Service Accounts and RBAC configuration&lt;/li>
-&lt;li>StatefulSet&lt;/li>
-&lt;li>DaemonSet&lt;/li>
-&lt;li>Deployment and Service (only for CSIPowerMaxRevProxy)&lt;/li>
-&lt;/ul>
-&lt;p>Note - There is one controller per Custom Resource type and each controller runs a single worker&lt;/p>
-&lt;h2 id="build-and-deploy">Build and Deploy&lt;/h2>
-&lt;h3 id="pre-requisites">Pre-requisites&lt;/h3>
-&lt;p>Make sure you are running the build on a machine with go &lt;strong>1.13.x&lt;/strong> installed&lt;/p>
-&lt;p>There are multiple Makefile targets available for building the Operator&lt;/p>
-&lt;h3 id="building-operator-binary">Building Operator binary&lt;/h3>
-&lt;p>If you wish to build the Operator binary, run the command - &lt;code>make go-build&lt;/code>&lt;/p>
-&lt;h3 id="build-operator-image">Build Operator image&lt;/h3>
-&lt;p>There are a few available Makefile targets which let you build a docker image for the Operator.
-The docker image is built using the &lt;code>operator-sdk&lt;/code> binary (which is available in the repository).
-The base image used to build the docker image is UBI (Universal Base Image) provided by Red Hat.&lt;/p>
-&lt;p>Run the command &lt;code>make docker-local&lt;/code> to make a docker image for the operator which will be tagged
-with the current logged in user and a timestamp. This option is useful for multiple developers using the same testing environment&lt;/p>
-&lt;p>Run the command &lt;code>make docker&lt;/code> to build a docker image for the Operator which will be tagged with git semantic versioning&lt;br>
-The official builds of Operator which are hosted on artifactory are built using the &lt;code>make docker&lt;/code> command&lt;/p>
-&lt;p>By default, this target will tag the newly built images with the artifactory repo&lt;br>
-Run the command &lt;code>REGISTRY=my-image-repo/dell-csi-operator make docker&lt;/code> to tag the docker image with your own repository&lt;/p>
-&lt;h3 id="push-docker-image-to-private-repository">Push docker image to private repository&lt;/h3>
-&lt;p>Run the command &lt;code>REGISTRY=my-image-repo/dell-csi-operator make docker-push&lt;/code> to build and push the docker image to &lt;code>my-image-repo&lt;/code> private repository&lt;/p>
-&lt;h3 id="push-docker-image-to-artifactory">Push docker image to artifactory&lt;/h3>
-&lt;p>Run the command &lt;code>make docker-push&lt;/code> to build and push the docker image to the artifactory repository for Operator&lt;/p>
-&lt;p>Note - Don&amp;rsquo;t use this option unless you really wish to push the image to artifactory as it may end up overwriting official builds&lt;/p>
-&lt;h3 id="run-the-operator-locally-without-deploying-any-image">Run the Operator locally without deploying any image&lt;/h3>
-&lt;h4 id="pre-requisites-1">Pre-requisites&lt;/h4>
-&lt;p>Make sure that a &lt;a href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">&lt;strong>KubeConfig&lt;/strong>&lt;/a> file pointing to your Kubernetes/OpenShift cluster is present in the default location&lt;/p>
-&lt;p>Run either of the following commands to run the Operator in your cluster without creating a deployment&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>make go-run&lt;/code>&lt;/li>
-&lt;li>&lt;code>./operator-sdk run local&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>Note - Make sure to install the CRDs managed by the Operator before running it locally&lt;/p>
-&lt;p>The above command will run the Operator binary which will be equivalent to installing the operator in the default namespace&lt;/p>
-&lt;h4 id="deploy-the-operator">Deploy the operator&lt;/h4>
-&lt;p>There are primarily two ways of deploying the Operator -&lt;/p>
-&lt;ol>
-&lt;li>Use Operator manifests and installation scripts&lt;/li>
-&lt;li>Use &lt;a href="https://github.com/operator-framework/operator-lifecycle-manager">OLM&lt;/a> to install the Operator&lt;br>
-During development -&lt;br>
-a) Use internal Operator Catalog hosted on artifactory&lt;br>
-b) Use OperatorHub to deploy publicly available Operator&lt;/li>
-&lt;/ol>
-&lt;h3 id="deploy-operator-without-olm">Deploy Operator without OLM&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;p>Update the docker image in the file &lt;code>deploy/operator.yaml&lt;/code> to the one you wish to install&lt;br>
-This could be an image from artifactory, an image which you built or any public image on dockerhub&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Run the command &lt;code>bash scripts/install.sh&lt;/code> to deploy the Operator in the default namespace&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>The installation script does the following:&lt;/p>
-&lt;ul>
-&lt;li>Create a Service Account and setup the RBAC using ClusterRole and ClusterRoleBindings&lt;/li>
-&lt;li>Create a ConfigMap which is used by the Operator&lt;/li>
-&lt;li>Install the various CRDs managed by the Operator&lt;/li>
-&lt;li>Create the Operator deployment (single replica)&lt;/li>
-&lt;/ul>
-&lt;h3 id="deploy-operator-using-olm">Deploy Operator using OLM&lt;/h3>
-&lt;h4 id="pre-requisites-2">Pre-requisites&lt;/h4>
-&lt;p>&lt;a href="https://github.com/operator-framework/operator-lifecycle-manager">OLM&lt;/a> is not available on upstream Kubernetes cluster by default and has to be installed before installing the Operator.&lt;/p>
-&lt;p>Run the command &lt;code>./operator-sdk olm install&lt;/code> to install &lt;code>OLM&lt;/code> in your cluster&lt;/p>
-&lt;p>Note - OLM is available as a default component in OpenShift clusters and you don&amp;rsquo;t need to install it separately&lt;/p>
-&lt;p>Note - Please refer Operator SDK &lt;a href="https://sdk.operatorframework.io/docs/">documentation&lt;/a> for more help on using operator-sdk&lt;/p>
-&lt;h4 id="deploy-operator-using-internal-catalog">Deploy Operator using internal Catalog&lt;/h4>
-&lt;p>Run the command &lt;code>bash scripts/install_olm.sh&lt;/code> to install the Operator using OLM in an upstream Kubernetes cluster
-Run the command &lt;code>bash scripts/install_olm.sh --openshift&lt;/code> to install the Operator using OLM in an OpenShift cluster&lt;/p>
-&lt;p>The above scripts will create instances of the following CRDs:&lt;/p>
-&lt;ul>
-&lt;li>CatalogSource&lt;/li>
-&lt;li>OperatorGroup&lt;/li>
-&lt;li>Subscription&lt;/li>
-&lt;li>InstallPlan&lt;/li>
-&lt;li>ClusterServiceVersion&lt;/li>
-&lt;/ul>
-&lt;p>You can query the status of these objects in the &lt;code>test-olm&lt;/code> namespace to get more information or troubleshoot any issues found during installation.&lt;/p>
-&lt;h3 id="verify-installation">Verify Installation&lt;/h3>
-&lt;p>Post a successful installation of the Operator, there should be an Operator deployment created in the cluster.&lt;br>
-Depending on the method of installation, this would be created in the namespace:&lt;/p>
-&lt;ul>
-&lt;li>Installation without OLM - &lt;code>default&lt;/code>&lt;/li>
-&lt;li>Installation with OLM - &lt;code>test-olm&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h4 id="query-for-crds">Query for CRDs&lt;/h4>
-&lt;p>You can also query for the CRDs installed in the cluster by running the command
-&lt;code>kubectl get crd&lt;/code>. You should see the following CRDs in the list of CRDs installed in the cluster:&lt;/p>
-&lt;ul>
-&lt;li>csiisilons.storage.dell.com&lt;/li>
-&lt;li>csipowermaxes.storage.dell.com&lt;/li>
-&lt;li>csipowermaxrevproxies.storage.dell.com&lt;/li>
-&lt;li>csipowerstores.storage.dell.com&lt;/li>
-&lt;li>csiunities.storage.dell.com&lt;/li>
-&lt;li>csivxflexoses.storage.dell.com&lt;/li>
-&lt;/ul>
-&lt;h2 id="install-a-csi-driver">Install a CSI driver&lt;/h2>
-&lt;p>Once the CRDs and Operator has been installed in the cluster, you can install any CSI driver by creating a Custom Resource (CR)&lt;br>
-For e.g. - If you want to install the CSI PowerMax driver, you should create a CR of the Kind &lt;code>CSIPowerMax&lt;/code>&lt;/p>
-&lt;p>Here are the steps involved in installing a driver:&lt;/p>
-&lt;ul>
-&lt;li>Make sure all dependencies for the driver have been met. This can include installation of specific packages, configuration of services, nodes&lt;/li>
-&lt;li>Create the namespace where you wish to install the driver&lt;/li>
-&lt;li>Create any mandatory and optional secrets required for the driver installation&lt;/li>
-&lt;li>Create the Custom Resource using the sample manifests provided for the driver&lt;/li>
-&lt;/ul>
-&lt;h3 id="create-custom-resource">Create custom resource&lt;/h3>
-&lt;p>A lot of sample manifest files have been provided in the &lt;code>deploy/crd&lt;/code> folder to help with the installation of various CSI Drivers
-They follow the naming convention&lt;/p>
-&lt;pre>&lt;code>{driver name}_{driver version}_k8s_{k8 version}.yaml
-&lt;/code>&lt;/pre>
-&lt;p>Or&lt;/p>
-&lt;pre>&lt;code>{driver name}_{driver version}_ops_{OpenShift version}.yaml
-&lt;/code>&lt;/pre>
-&lt;p>Use the correct sample manifest based on the driver, driver version and Kubernetes/OpenShift version&lt;/p>
-&lt;p>For e.g.&lt;br>
+  --directory[=]&amp;lt;directory&amp;gt;            Directory to copy files from.
+                                       Default is &amp;quot;/dell/git/dell-csi-helm-installer/installer&amp;quot;
+  --branch[=]&amp;lt;branch&amp;gt;                  Branch to copy to. This branch will be created if it does not exist at the remote.
+                                       Default is &amp;quot;feature/update-common-installer-scripts&amp;quot;
+  --commit[=]&amp;lt;commit message&amp;gt;          Git commit message.
+                                       Default is &amp;quot;Addressing installation review comments across all drivers&amp;quot;
+  --assume-yes                         Assume &#39;yes&#39; for any questions. Default is not to assume this.
+  -h                                   Help
+&lt;/code&gt;&lt;/pre&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Installation using Operator</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/getting-started/operator/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/operator/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;dell-csi-operator&lt;/code&gt; is a Kubernetes operator which can be used to install and manage various CSI Drivers provided by Dell EMC for different storage arrays.&lt;/p&gt;
+&lt;p&gt;It is built, deployed and tested using the toolset provided by Operator &lt;a href=&#34;https://github.com/operator-framework&#34;&gt;framework&lt;/a&gt; which include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/operator-framework/operator-sdk&#34;&gt;operator-sdk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/operator-framework/operator-lifecycle-manager&#34;&gt;operator-lifecycle-manager&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/operator-framework/operator-registry&#34;&gt;operator-registry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note - &lt;strong&gt;operator-sdk-vv1.18.2-x86_64-linux-gnu&lt;/strong&gt; has been used to build the &lt;code&gt;dell-csi-operator&lt;/code&gt; and is available at the root of the repository&lt;/p&gt;
+&lt;h2 id=&#34;custom-resource-definitions&#34;&gt;Custom Resource Definitions&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;dell-csi-operator&lt;/code&gt; manages a set of &lt;a href=&#34;https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/&#34;&gt;Custom Resource Definitions&lt;/a&gt; (CRDs)&lt;br&gt;
+These CRDs represent a specific CSI Driver installation and are part of the API group &lt;code&gt;storage.dell.com&lt;/code&gt;&lt;br&gt;
+The current set of CRDs managed by the &lt;code&gt;dell-csi-operator&lt;/code&gt; are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CSIUnity&lt;/li&gt;
+&lt;li&gt;CSIIsilon&lt;/li&gt;
+&lt;li&gt;CSIVXFlexOS&lt;/li&gt;
+&lt;li&gt;CSIPowerStore&lt;/li&gt;
+&lt;li&gt;CSIPowerMax&lt;/li&gt;
+&lt;li&gt;CSIPowerMaxRevProxy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;controllers&#34;&gt;Controllers&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;dell-csi-operator&lt;/code&gt; utilizes Kubernetes &lt;a href=&#34;https://github.com/kubernetes-sigs/controller-runtime&#34;&gt;controller runtime&lt;/a&gt; libraries for building controllers which
+run as part of the Operator deployment.&lt;br&gt;
+These controllers watch for any requests to create/modify/delete instances of the Custom Resource Definitions (CRDs) and handle the &lt;a href=&#34;https://godoc.org/sigs.k8s.io/controller-runtime/pkg/reconcile&#34;&gt;reconciliation&lt;/a&gt;
+of these requests.&lt;/p&gt;
+&lt;p&gt;Each instance of a CRD is called a Custom Resource (CR) and can be managed by a client like &lt;code&gt;kubectl&lt;/code&gt; in the same way a native
+Kubernetes resource is managed.&lt;br&gt;
+When you create a Custom Resource, then the corresponding Controller will create the Kubernetes objects required for the driver installation.&lt;/p&gt;
+&lt;p&gt;This includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Service Accounts and RBAC configuration&lt;/li&gt;
+&lt;li&gt;StatefulSet&lt;/li&gt;
+&lt;li&gt;DaemonSet&lt;/li&gt;
+&lt;li&gt;Deployment and Service (only for CSIPowerMaxRevProxy)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note - There is one controller per Custom Resource type and each controller runs a single worker&lt;/p&gt;
+&lt;h2 id=&#34;build-and-deploy&#34;&gt;Build and Deploy&lt;/h2&gt;
+&lt;h3 id=&#34;pre-requisites&#34;&gt;Pre-requisites&lt;/h3&gt;
+&lt;p&gt;Make sure you are running the build on a machine with go &lt;strong&gt;1.13.x&lt;/strong&gt; installed&lt;/p&gt;
+&lt;p&gt;There are multiple Makefile targets available for building the Operator&lt;/p&gt;
+&lt;h3 id=&#34;building-operator-binary&#34;&gt;Building Operator binary&lt;/h3&gt;
+&lt;p&gt;If you wish to build the Operator binary, run the command - &lt;code&gt;make go-build&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;build-operator-image&#34;&gt;Build Operator image&lt;/h3&gt;
+&lt;p&gt;There are a few available Makefile targets which let you build a docker image for the Operator.
+The docker image is built using the &lt;code&gt;operator-sdk&lt;/code&gt; binary (which is available in the repository).
+The base image used to build the docker image is UBI (Universal Base Image) provided by Red Hat.&lt;/p&gt;
+&lt;p&gt;Run the command &lt;code&gt;make docker-local&lt;/code&gt; to make a docker image for the operator which will be tagged
+with the current logged in user and a timestamp. This option is useful for multiple developers using the same testing environment&lt;/p&gt;
+&lt;p&gt;Run the command &lt;code&gt;make docker&lt;/code&gt; to build a docker image for the Operator which will be tagged with git semantic versioning&lt;br&gt;
+The official builds of Operator which are hosted on artifactory are built using the &lt;code&gt;make docker&lt;/code&gt; command&lt;/p&gt;
+&lt;p&gt;By default, this target will tag the newly built images with the artifactory repo&lt;br&gt;
+Run the command &lt;code&gt;REGISTRY=my-image-repo/dell-csi-operator make docker&lt;/code&gt; to tag the docker image with your own repository&lt;/p&gt;
+&lt;h3 id=&#34;push-docker-image-to-private-repository&#34;&gt;Push docker image to private repository&lt;/h3&gt;
+&lt;p&gt;Run the command &lt;code&gt;REGISTRY=my-image-repo/dell-csi-operator make docker-push&lt;/code&gt; to build and push the docker image to &lt;code&gt;my-image-repo&lt;/code&gt; private repository&lt;/p&gt;
+&lt;h3 id=&#34;push-docker-image-to-artifactory&#34;&gt;Push docker image to artifactory&lt;/h3&gt;
+&lt;p&gt;Run  the command &lt;code&gt;make docker-push&lt;/code&gt; to build and push the docker image to the artifactory repository for Operator&lt;/p&gt;
+&lt;p&gt;Note - Don&amp;rsquo;t use this option unless you really wish to push the image to artifactory as it may end up overwriting official builds&lt;/p&gt;
+&lt;h3 id=&#34;run-the-operator-locally-without-deploying-any-image&#34;&gt;Run the Operator locally without deploying any image&lt;/h3&gt;
+&lt;h4 id=&#34;pre-requisites-1&#34;&gt;Pre-requisites&lt;/h4&gt;
+&lt;p&gt;Make sure that a &lt;a href=&#34;https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/&#34;&gt;&lt;strong&gt;KubeConfig&lt;/strong&gt;&lt;/a&gt; file pointing to your Kubernetes/OpenShift cluster is present in the default location&lt;/p&gt;
+&lt;p&gt;Run either of the following commands to run the Operator in your cluster without creating a deployment&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;make go-run&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;./operator-sdk run local&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note - Make sure to install the CRDs managed by the Operator before running it locally&lt;/p&gt;
+&lt;p&gt;The above command will run the Operator binary which will be equivalent to installing the operator in the default namespace&lt;/p&gt;
+&lt;h4 id=&#34;deploy-the-operator&#34;&gt;Deploy the operator&lt;/h4&gt;
+&lt;p&gt;There are primarily two ways of deploying the Operator -&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Use Operator manifests and installation scripts&lt;/li&gt;
+&lt;li&gt;Use &lt;a href=&#34;https://github.com/operator-framework/operator-lifecycle-manager&#34;&gt;OLM&lt;/a&gt; to install the Operator&lt;br&gt;
+During development -&lt;br&gt;
+a) Use internal Operator Catalog hosted on artifactory&lt;br&gt;
+b) Use OperatorHub to deploy publicly available Operator&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;deploy-operator-without-olm&#34;&gt;Deploy Operator without OLM&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Update the docker image in the file &lt;code&gt;deploy/operator.yaml&lt;/code&gt; to the one you wish to install&lt;br&gt;
+This could be an image from artifactory, an image which you built or any public image on dockerhub&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Run the command &lt;code&gt;bash scripts/install.sh&lt;/code&gt; to deploy the Operator in the default namespace&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The installation script does the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a Service Account and setup the RBAC using ClusterRole and ClusterRoleBindings&lt;/li&gt;
+&lt;li&gt;Create a ConfigMap which is used by the Operator&lt;/li&gt;
+&lt;li&gt;Install the various CRDs managed by the Operator&lt;/li&gt;
+&lt;li&gt;Create the Operator deployment (single replica)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;deploy-operator-using-olm&#34;&gt;Deploy Operator using OLM&lt;/h3&gt;
+&lt;h4 id=&#34;pre-requisites-2&#34;&gt;Pre-requisites&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/operator-framework/operator-lifecycle-manager&#34;&gt;OLM&lt;/a&gt; is not available on upstream Kubernetes cluster by default and has to be installed before installing the Operator.&lt;/p&gt;
+&lt;p&gt;Run the  command &lt;code&gt;./operator-sdk olm install&lt;/code&gt; to install &lt;code&gt;OLM&lt;/code&gt; in your cluster&lt;/p&gt;
+&lt;p&gt;Note - OLM is available as a default component in OpenShift clusters and you don&amp;rsquo;t need to install it separately&lt;/p&gt;
+&lt;p&gt;Note - Please refer Operator SDK &lt;a href=&#34;https://sdk.operatorframework.io/docs/&#34;&gt;documentation&lt;/a&gt; for more help on using operator-sdk&lt;/p&gt;
+&lt;h4 id=&#34;deploy-operator-using-internal-catalog&#34;&gt;Deploy Operator using internal Catalog&lt;/h4&gt;
+&lt;p&gt;Run the command &lt;code&gt;bash scripts/install_olm.sh&lt;/code&gt; to install the Operator using OLM in an upstream Kubernetes cluster
+Run the command &lt;code&gt;bash scripts/install_olm.sh --openshift&lt;/code&gt; to install the Operator using OLM in an OpenShift cluster&lt;/p&gt;
+&lt;p&gt;The above scripts will create instances of the following CRDs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CatalogSource&lt;/li&gt;
+&lt;li&gt;OperatorGroup&lt;/li&gt;
+&lt;li&gt;Subscription&lt;/li&gt;
+&lt;li&gt;InstallPlan&lt;/li&gt;
+&lt;li&gt;ClusterServiceVersion&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can query the status of these objects in the &lt;code&gt;test-olm&lt;/code&gt; namespace to get more information or troubleshoot any issues found during installation.&lt;/p&gt;
+&lt;h3 id=&#34;verify-installation&#34;&gt;Verify Installation&lt;/h3&gt;
+&lt;p&gt;Post a successful installation of the Operator, there should be an Operator deployment created in the cluster.&lt;br&gt;
+Depending on the method of installation, this would be created in the namespace:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Installation without OLM - &lt;code&gt;default&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Installation with OLM - &lt;code&gt;test-olm&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;query-for-crds&#34;&gt;Query for CRDs&lt;/h4&gt;
+&lt;p&gt;You can also query for the CRDs installed in the cluster by running the command
+&lt;code&gt;kubectl get crd&lt;/code&gt;. You should see the following CRDs in the list of CRDs installed in the cluster:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;csiisilons.storage.dell.com&lt;/li&gt;
+&lt;li&gt;csipowermaxes.storage.dell.com&lt;/li&gt;
+&lt;li&gt;csipowermaxrevproxies.storage.dell.com&lt;/li&gt;
+&lt;li&gt;csipowerstores.storage.dell.com&lt;/li&gt;
+&lt;li&gt;csiunities.storage.dell.com&lt;/li&gt;
+&lt;li&gt;csivxflexoses.storage.dell.com&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;install-a-csi-driver&#34;&gt;Install a CSI driver&lt;/h2&gt;
+&lt;p&gt;Once the CRDs and Operator has been installed in the cluster, you can install any CSI driver by creating a Custom Resource (CR)&lt;br&gt;
+For e.g. - If you want to install the CSI PowerMax driver, you should create a CR of the Kind &lt;code&gt;CSIPowerMax&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Here are the steps involved in installing a driver:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Make sure all dependencies for the driver have been met. This can include installation of specific packages, configuration of services, nodes&lt;/li&gt;
+&lt;li&gt;Create the namespace where you wish to install the driver&lt;/li&gt;
+&lt;li&gt;Create any mandatory and optional secrets required for the driver installation&lt;/li&gt;
+&lt;li&gt;Create the Custom Resource using the sample manifests provided for the driver&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;create-custom-resource&#34;&gt;Create custom resource&lt;/h3&gt;
+&lt;p&gt;A lot of sample manifest files have been provided in the &lt;code&gt;deploy/crd&lt;/code&gt; folder to help with the installation of various CSI Drivers
+They follow the naming convention&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{driver name}_{driver version}_k8s_{k8 version}.yaml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{driver name}_{driver version}_ops_{OpenShift version}.yaml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use the correct sample manifest based on the driver, driver version and Kubernetes/OpenShift version&lt;/p&gt;
+&lt;p&gt;For e.g.&lt;br&gt;
 powermax_v140_k8s_117.yaml &amp;lt;- To install CSI PowerMax driver v1.4.0 on a Kubernetes 1.17 cluster
-powermax_v140_ops_43.yaml &amp;lt;- To install CSI PowerMax driver v1.4.0 on an OpenShift 4.3 cluster&lt;/p>
-&lt;p>Note - For this example, we will assume that the Custom Resource will be created in the namespace &lt;code>powermax&lt;/code> with the name &lt;code>powermax&lt;/code>&lt;/p>
-&lt;p>Create a new file &lt;code>powermax.yaml&lt;/code> by copying the relevant sample file and edit the contents (specific to your installation).&lt;/p>
-&lt;p>Run the command &lt;code>kubectl create -f powermax.yaml&lt;/code> to create the Custom Resource (CR)&lt;/p>
-&lt;p>Check the status of the Custom Resource by running the command &lt;code>kubectl get csipowermax -n powermax&lt;/code>&lt;/p>
-&lt;p>If the status of the CR shows &lt;code>Running&lt;/code> then the driver installation completed successfully with all driver pods running&lt;br>
-If the status of the CR shows &lt;code>Succeeded&lt;/code> then the driver installation succeeded but all driver pods are not up and running&lt;br>
-If the status of the CR shows &lt;code>InvalidConfig&lt;/code> then there is an incorrect value specified in the Custom Resource manifest&lt;/p>
-&lt;p>Note - The driver status can take some time to migrate from &lt;code>Succeeded&lt;/code> to &lt;code>Running&lt;/code> because of the time taken for the driver pods to completely start up.&lt;br>
-In case some pods are not up and running, the Operator will query for their status for at least an hour before giving up on updating the status of the Custom Resource.&lt;/p>
-&lt;p>You can also check the status of the driver pods by running the command &lt;code>kubectl get pods -n powermax&lt;/code>&lt;/p>
-&lt;p>Note - Run the command &lt;code>kubectl get csipowermax --all-namespaces&lt;/code> to query for all Custom Resources of the type CSIPowerMax in your cluster&lt;/p>
-&lt;h3 id="update-custom-resource">Update Custom Resource&lt;/h3>
-&lt;p>If you want to update the driver installation or fix any issues in the Custom Resource (for e.g. - InValidConfig), then you can update the Custom Resource&lt;br>
-This can be done in multiple ways&lt;/p>
-&lt;ul>
-&lt;li>Run the command &lt;code>kubectl edit csipowermax powermax -n powermax&lt;/code> and edit any desired field(s)&lt;/li>
-&lt;li>Update the manifest file and run the command &lt;code>kubectl apply -f powermax.yaml&lt;/code>&lt;/li>
-&lt;li>Directly patch the Custom Resource (refer Kubernetes documentation)&lt;/li>
-&lt;/ul>
-&lt;p>Once the update has been applied to the Custom Resource, the Operator will try to &lt;code>reconcile&lt;/code> the desired state with the observed state in the cluster and apply required changes (if any) to the various resources part of the driver installation&lt;/p>
-&lt;h3 id="delete-custom-resource">Delete Custom Resource&lt;/h3>
-&lt;p>Run the command &lt;code>kubectl delete -f powermax.yaml&lt;/code> to delete the Custom Resource. This will delete the Custom Resource and delete all the driver pods.&lt;/p></description></item><item><title>Docs:</title><link>https://sakshimakkar.github.io/hugo1/docs/dell-csi-driver/hpe_driver/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/dell-csi-driver/hpe_driver/</guid><description>
-&lt;h1 id="introduction">Introduction&lt;/h1>
-&lt;p>A Container Storage Interface (&lt;a href="https://github.com/container-storage-interface/spec">CSI&lt;/a>) Driver for Kubernetes. The HPE CSI Driver for Kubernetes allows you to use a &lt;a href="../container_storage_provider/index.md">Container Storage Provider&lt;/a> (CSP) to perform data management operations on storage resources. The architecture of the CSI driver allows block storage vendors to implement a CSP that follows the &lt;a href="https://github.com/hpe-storage/container-storage-provider">specification&lt;/a> (a &lt;a href="https://developer.hpe.com/api/hpe-nimble-csp/">browser friendly version&lt;/a>).&lt;/p>
-&lt;p>The CSI driver architecture allows a complete separation of concerns between upstream Kubernetes core, SIG Storage (CSI owners), CSI driver author (HPE) and the backend CSP developer.&lt;/p>
-&lt;p>&lt;img src="img/csi_driver_architecture-1.3.0.png" alt="HPE CSI Driver Architecture">&lt;/p>
-&lt;p>!!! tip
-The HPE CSI Driver for Kubernetes is vendor agnostic. Any entity may leverage the driver and provide their own Container Storage Provider.&lt;/p>
-&lt;h2 id="table-of-contents">Table of Contents&lt;/h2>
-&lt;p>[TOC]&lt;/p>
-&lt;h2 id="features-and-capabilities">Features and capabilities&lt;/h2>
-&lt;p>CSI gradually mature features and capabilities in the specification at the pace of the community. HPE keep a close watch on differentiating features the primary storage family of products may be suitable for implementing in CSI and Kubernetes. HPE experiment early and often. That&amp;rsquo;s why it&amp;rsquo;s sometimes possible to observe a certain feature being available in the CSI driver although it hasn&amp;rsquo;t been announced or isn&amp;rsquo;t documented.&lt;/p>
-&lt;p>Below is the official table for CSI features we track and deem readily available for use after we&amp;rsquo;ve officially tested and validated it in the &lt;a href="#compatibility_and_support">platform matrix&lt;/a>.&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Feature&lt;/th>
-&lt;th>K8s maturity&lt;/th>
-&lt;th>Since K8s version&lt;/th>
-&lt;th>HPE CSI Driver&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Dynamic Provisioning&lt;/td>
-&lt;td>GA&lt;/td>
-&lt;td>1.13&lt;/td>
-&lt;td>1.0.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Raw Block Volume&lt;/td>
-&lt;td>GA&lt;/td>
-&lt;td>1.18&lt;/td>
-&lt;td>1.2.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Volume Expansion&lt;/td>
-&lt;td>Beta&lt;/td>
-&lt;td>1.16&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>PVC Data Source&lt;/td>
-&lt;td>GA&lt;/td>
-&lt;td>1.18&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Inline Ephemeral Volumes&lt;/td>
-&lt;td>Beta&lt;/td>
-&lt;td>1.16&lt;/td>
-&lt;td>1.2.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Volume Snapshots&lt;/td>
-&lt;td>Beta&lt;/td>
-&lt;td>1.17&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Volume Limits&lt;/td>
-&lt;td>GA&lt;/td>
-&lt;td>1.17&lt;/td>
-&lt;td>1.2.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Volume Mutator&lt;sup>1&lt;/sup>&lt;/td>
-&lt;td>N/A&lt;/td>
-&lt;td>N/A&lt;/td>
-&lt;td>1.3.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Generic Ephemeral Volumes&lt;/td>
-&lt;td>Alpha&lt;/td>
-&lt;td>1.19&lt;/td>
-&lt;td>1.3.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Topology&lt;/td>
-&lt;td>GA&lt;/td>
-&lt;td>1.17&lt;/td>
-&lt;td>Future&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>&lt;small>&lt;sup>1&lt;/sup> = HPE CSI Driver for Kubernetes specific feature. CSP support may vary.&lt;/small>&lt;/p>
-&lt;p>Depending on the CSP, it may support a number of different snapshotting, cloning and restoring operations by taking advantage of &lt;code>StorageClass&lt;/code> parameter overloading. Please see the respective &lt;a href="../container_storage_provider/index.md">CSP&lt;/a> for additional functionality.&lt;/p>
-&lt;p>Refer to the &lt;a href="https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/">official table&lt;/a> of feature gates in the Kubernetes docs to find availability of beta and alpha features. HPE provide limited support on non-GA CSI features. Please file any issues, questions or feature requests &lt;a href="https://github.com/hpe-storage/csi-driver/issues">here&lt;/a>. You may also join our Slack community to chat with HPE folks close to this project. We hang out in &lt;code>#NimbleStorage&lt;/code>, &lt;code>#3par-primera&lt;/code> and &lt;code>#Kubernetes&lt;/code>, sign up at &lt;a href="https://slack.hpedev.io/">slack.hpedev.io&lt;/a> and login at &lt;a href="https://hpedev.slack.com">hpedev.slack.com&lt;/a>.&lt;/p>
-&lt;p>!!! tip
-Familiarize yourself with the basic requirements below for running the CSI driver on your Kubernetes cluster. It&amp;rsquo;s then highly recommended to continue installing the CSI driver with either a &lt;a href="deployment.md#helm">Helm chart&lt;/a> or an &lt;a href="deployment.md#operator">Operator&lt;/a>.&lt;/p>
-&lt;h2 id="compatibility-and-support">Compatibility and support&lt;/h2>
-&lt;p>These are the combinations HPE has tested and can provide official support services around for each of the CSI driver releases. Each &lt;a href="../container_storage_provider/index.md">Container Storage Provider&lt;/a> has it&amp;rsquo;s own requirements in terms of storage platform OS and may have other constraints not listed here.&lt;/p>
-&lt;p>!!! note
-For Kubernetes 1.12 and earlier please see &lt;a href="../flexvolume_driver/index.md">legacy FlexVolume drivers&lt;/a>.&lt;/p>
-&lt;h4 id="hpe-csi-driver-for-kubernetes-130">HPE CSI Driver for Kubernetes 1.3.0&lt;/h4>
-&lt;p>Release highlights:&lt;/p>
-&lt;ul>
-&lt;li>Kubernetes CSI Sidecar: Volume Mutator&lt;/li>
-&lt;li>Broader ecosystem support&lt;/li>
-&lt;li>Native iSCSI CHAP configuration&lt;/li>
-&lt;/ul>
-&lt;table>
-&lt;tr>
-&lt;th>Kubernetes&lt;/th>
-&lt;td>1.15-1.18&lt;sup>1&lt;/sup>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Worker OS&lt;/th>
-&lt;td>CentOS 7.6, RHEL 7.6, RHCOS 4.3-4.4, Ubuntu 18.04, Ubuntu 20.04
-&lt;/tr>
-&lt;tr>
-&lt;th>Data protocol&lt;/th>
-&lt;td>Fibre Channel, iSCSI &lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Platforms&lt;/th>
-&lt;td>
-NimbleOS 5.0.10.x, 5.1.4.200-x, 5.2.1.x, 5.3.0.x&lt;br />
-3PAR OS 3.3.1&lt;br/>
-Primera OS 4.0.0, 4.1.0, 4.2.0&lt;sup>2&lt;/sup>&lt;br/>
-&lt;/td>
-&lt;tr>
-&lt;th>Release notes&lt;/th>
-&lt;td>&lt;a href=https://github.com/hpe-storage/csi-driver/blob/master/release-notes/v1.3.0.md>v1.3.0&lt;/a> on GitHub&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Blogs&lt;/th>
-&lt;td>
-&lt;a href="https://community.hpe.com/t5/around-the-storage-block/hpe-csi-driver-for-kubernetes-1-3-0-now-available/ba-p/7099684">Around The Storage Block&lt;/a> (release)&lt;br/>
-&lt;a href="https://developer.hpe.com/blog/ppPAlQ807Ah8QGMNl1YE/tutorial-enabling-remote-copy-using-the-hpe-csi-driver-for-kubernetes-on">HPE DEV&lt;/a> (Remote copy peer persistence tutorial)&lt;br/>
-&lt;a href="https://developer.hpe.com/blog/8nlLVWP1RKFROlvZJDo9/introducing-kubernetes-csi-sidecar-containers-from-hpe">HPE DEV&lt;/a> (Introducing the volume mutator)&lt;br/>
-&lt;/td>
-&lt;/table>
-&lt;small>
-&lt;sup>1&lt;/sup> = For HPE Ezmeral Container Platform and Rancher; Kubernetes clusters must be deployed within the currently supported range of "Worker OS" platforms listed in the above table. See [partner ecosystems](../partners) for other variations.&lt;br />
-&lt;sup>2&lt;/sup> = Only FC is supported on Primera OS prior to 4.2.0.
-&lt;/small>
-&lt;h4 id="hpe-csi-driver-for-kubernetes-120">HPE CSI Driver for Kubernetes 1.2.0&lt;/h4>
-&lt;p>Release highlights: Support for raw block volumes and inline ephemeral volumes. NFS Server Provisioner in Tech Preview (beta).&lt;/p>
-&lt;table>
-&lt;tr>
-&lt;th>Kubernetes&lt;/th>
-&lt;td>1.14-1.18&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Worker OS&lt;/th>
-&lt;td>CentOS 7.6, RHEL 7.6, RHCOS 4.2-4.3, Ubuntu 16.04, Ubuntu 18.04
-&lt;/tr>
-&lt;tr>
-&lt;th>Data protocol&lt;/th>
-&lt;td>Fibre Channel, iSCSI &lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Platforms&lt;/th>
-&lt;td>
-NimbleOS 5.0.10.x, 5.1.3.1000-x, 5.1.4.200-x, 5.2.1.x&lt;br />
-3PAR OS 3.3.1&lt;br/>
-Primera OS 4.0.0, 4.1.0 (FC only)&lt;br/>
-&lt;/td>
-&lt;tr>
-&lt;th>Release notes&lt;/th>
-&lt;td>&lt;a href=https://github.com/hpe-storage/csi-driver/blob/master/release-notes/v1.2.0.md>v1.2.0&lt;/a> on GitHub&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Blogs&lt;/th>
-&lt;td>&lt;a href="https://community.hpe.com/t5/around-the-storage-block/hpe-csi-driver-for-kubernetes-1-2-0-available-now/ba-p/7091977">Around The Storage Block&lt;/a> (release)&lt;br/>
-&lt;a href="https://developer.hpe.com/blog/EE2QnZBXXwi4o7X0E4M0/using-raw-block-and-ephemeral-inline-volumes-on-kubernetes">HPE DEV&lt;/a> (tutorial for raw block and inline volumes)&lt;br/>
-&lt;a href="https://community.hpe.com/t5/around-the-storage-block/tech-preview-network-file-system-server-provisioner-for-hpe-csi/ba-p/7092948">Around The Storage Block&lt;/a> (NFS Server Provisioner)&lt;br/>
-&lt;a href="https://developer.hpe.com/blog/xABwJY56qEfNGMEo1lDj/introducing-a-nfs-server-provisioner-and-pod-monitor-for-the-hpe-csi-dri">HPE DEV&lt;/a> (tutorial for NFS)
-&lt;/td>
-&lt;/table>
-&lt;h4 id="hpe-csi-driver-for-kubernetes-111">HPE CSI Driver for Kubernetes 1.1.1&lt;/h4>
-&lt;p>Release highlights: Support for HPE 3PAR and Primera Container Storage Provider.&lt;/p>
-&lt;table>
-&lt;tr>
-&lt;th>Kubernetes&lt;/th>
-&lt;td>1.13-1.17&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Worker OS&lt;/th>
-&lt;td>CentOS 7.6, RHEL 7.6, RHCOS 4.2-4.3, Ubuntu 16.04, Ubuntu 18.04
-&lt;/tr>
-&lt;tr>
-&lt;th>Data protocol&lt;/th>
-&lt;td>Fibre Channel, iSCSI &lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Platforms&lt;/th>
-&lt;td>
-NimbleOS 5.0.8.x, 5.1.3.x, 5.1.4.x&lt;br/>
-3PAR OS 3.3.1&lt;br/>
-Primera OS 4.0.0, 4.1.0 (FC only)&lt;br/>
-&lt;/td>
-&lt;tr>
-&lt;th>Release notes&lt;/th>
-&lt;td>N/A&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;th>Blogs&lt;/th>
-&lt;td>&lt;a href="https://community.hpe.com/t5/hpe-storage-tech-insiders/hpe-csi-driver-for-kubernetes-1-1-1-and-hpe-3par-and-hpe-primera/ba-p/7086675">HPE Storage Tech Insiders&lt;/a> (release), &lt;a href="https://developer.hpe.com/blog/9o7zJkqlX5cErkrzgopL/tutorial-how-to-get-started-with-the-hpe-csi-driver-and-hpe-primera-and-">HPE DEV&lt;/a> (tutorial for "primera3par" CSP)
-&lt;/table>
-&lt;h4 id="release-archive">Release archive&lt;/h4>
-&lt;p>HPE currently supports up to three minor releases of the HPE CSI Driver for Kubernetes.&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="archive.md">Unsupported releases&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="known-limitations">Known limitations&lt;/h2>
-&lt;ul>
-&lt;li>Always check with the Kubernetes vendor distribution which CSI features are available for use and supported by the vendor.&lt;/li>
-&lt;/ul>
-&lt;h2 id="iscsi-chap-considerations">iSCSI CHAP considerations&lt;/h2>
-&lt;p>If iSCSI CHAP is being used in the environment, consider the following.&lt;/p>
-&lt;h3 id="csi-driver-121-and-below">CSI driver 1.2.1 and below&lt;/h3>
-&lt;p>In version 1.2.1 and below, the CSI driver did not support CHAP natively. CHAP must be enabled manually on the worker nodes before deploying the CSI driver on the cluster. This also needs to be applied to new worker nodes before they join the cluster.&lt;/p>
-&lt;h3 id="csi-driver-130-and-above">CSI driver 1.3.0 and above&lt;/h3>
-&lt;p>CHAP is now an optional part of the initial deployment of the driver with parameters passed to Helm or the Operator. For object definitions, the &lt;code>CHAP_USER&lt;/code> and &lt;code>CHAP_PASSWORD&lt;/code> needs to be supplied to the &lt;code>csi-node-driver&lt;/code>. The CHAP username and secret is picked up in the &lt;code>hpenodeinfo&lt;/code> Custom Resource Definition (CRD). The CSP is under contract to create the user if it doesn&amp;rsquo;t exist on the backend.&lt;/p>
-&lt;p>CHAP is a good measure to prevent unauthorized access to iSCSI targets, it does not encrypt data on the wire. CHAP secrets should be at least twelve charcters in length.&lt;/p>
-&lt;h2 id="kubernetes-feature-gates">Kubernetes feature gates&lt;/h2>
-&lt;p>Different features mature at different rates. Refer to the &lt;a href="https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/">official table&lt;/a> of feature gates in the Kubernetes docs.&lt;/p>
-&lt;p>The following guidelines appliy to which feature gates got introduced as alphas for the corresponding version of Kubernetes. For example, &lt;code>ExpandCSIVolumes&lt;/code> got introduced in 1.14 but is still an alpha in 1.15, hence you need to enable that feature gate in 1.15 as well if you want to use it.&lt;/p>
-&lt;h3 id="kubernetes-113">Kubernetes 1.13&lt;/h3>
-&lt;ul>
-&lt;li>&lt;code>--allow-privileged&lt;/code> flag must be set to true for the API server&lt;/li>
-&lt;/ul>
-&lt;h3 id="kubernetes-114">Kubernetes 1.14&lt;/h3>
-&lt;ul>
-&lt;li>&lt;code>--allow-privileged&lt;/code> flag must be set to true for the API server&lt;/li>
-&lt;li>&lt;code>--feature-gates=ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true&lt;/code> feature gate flags must be set to true for both the API server and kubelet for resize support&lt;/li>
-&lt;/ul>
-&lt;h3 id="kubernetes-115">Kubernetes 1.15&lt;/h3>
-&lt;ul>
-&lt;li>&lt;code>--allow-privileged&lt;/code> flag must be set to true for the API server&lt;/li>
-&lt;li>&lt;code>--feature-gates=ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true&lt;/code> feature gate flags must be set to true for both the API server and kubelet for resize support&lt;/li>
-&lt;li>&lt;code>--feature-gates=CSIInlineVolume=true&lt;/code> feature gate flag must be set to true for both the API server and kubelet for pod inline volumes (Ephemeral Local Volumes) support&lt;/li>
-&lt;li>&lt;code>--feature-gates=VolumePVCDataSource=true&lt;/code> feature gate flag must be set to true for both the API server and kubelet for Volume cloning support&lt;/li>
-&lt;/ul>
-&lt;h3 id="kubernetes-119">Kubernetes 1.19&lt;/h3>
-&lt;ul>
-&lt;li>&lt;code>--feature-gates=GenericEphemeralVolume=true&lt;/code> feature gate flags needs to be passed to api-server, scheduler, controller-manager and kubelet to enable Generic Ephemeral Volumes&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Pod Deployment</title><link>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</guid><description>
-&lt;h2 id="csi-powerscale">CSI-PowerScale&lt;/h2>
-&lt;p>Test the deployment workflow of a simple pod on PowerScale storage.&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Creating a volume:&lt;/strong>&lt;/p>
-&lt;p>Create a file &lt;code>pvc.yaml&lt;/code> using sample yaml files located at test/sample_files/&lt;/p>
-&lt;p>Execute the following command to create volume&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvc.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code>kubectl get pvc&lt;/code>.
-Note: Verify system for the new volume&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Attach the volume to Host&lt;/strong>&lt;/p>
-&lt;p>To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code>nginx.yaml&lt;/code> using sample yaml files located at test/sample_files/.&lt;/p>
-&lt;p>Execute the following command to mount the volume to kubernetes node&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/nginx.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.
-Note: Verify PowerScale system for host to be part of clients/rootclients field of export created for volume and used by nginx application.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Snapshot&lt;/strong>&lt;/p>
-&lt;p>The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml. The sample file for snapshot creation is located at test/sample_files/&lt;/p>
-&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/snap.yaml
-&lt;/code>&lt;/pre>&lt;p>The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the PowerScale system for new created snapshot.&lt;/p>
-&lt;p>Note:&lt;/p>
-&lt;ul>
-&lt;li>User can see the snapshots using &lt;code>kubectl get volumesnapshot&lt;/code>&lt;/li>
-&lt;li>Notice that this VolumeSnapshot class has a reference to a snapshotClassName:isilon-snapclass. The CSI Driver for PowerScale installation creates this class as its default snapshot class.&lt;/li>
-&lt;li>You can see its definition using &lt;code>kubectl get volumesnapshotclasses isilon-snapclass -o yaml&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume from Snapshot&lt;/strong>&lt;/p>
-&lt;p>The following procedure will create a new volume from a given snapshot which is specified in spec dataSource field.&lt;/p>
-&lt;p>The sample file for volume creation from snapshot is located at test/sample_files/&lt;/p>
-&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/volume_from_snap.yaml
-&lt;/code>&lt;/pre>&lt;p>Verify the PowerScale system for new created volume from snapshot.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Delete Snapshot&lt;/strong>&lt;/p>
-&lt;p>Execute the following command to delete the snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl get volumesnapshot
+powermax_v140_ops_43.yaml &amp;lt;- To install CSI PowerMax driver v1.4.0 on an OpenShift 4.3 cluster&lt;/p&gt;
+&lt;p&gt;Note - For this example, we will assume that the Custom Resource will be created in the namespace &lt;code&gt;powermax&lt;/code&gt; with the name &lt;code&gt;powermax&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Create a new file &lt;code&gt;powermax.yaml&lt;/code&gt; by copying the relevant sample file and edit the contents (specific to your installation).&lt;/p&gt;
+&lt;p&gt;Run the command &lt;code&gt;kubectl create -f powermax.yaml&lt;/code&gt; to create the Custom Resource (CR)&lt;/p&gt;
+&lt;p&gt;Check the status of the Custom Resource by running the command &lt;code&gt;kubectl get csipowermax -n powermax&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If the status of the CR shows &lt;code&gt;Running&lt;/code&gt; then the driver installation completed successfully with all driver pods running&lt;br&gt;
+If the status of the CR shows &lt;code&gt;Succeeded&lt;/code&gt; then the driver installation succeeded but all driver pods are not up and running&lt;br&gt;
+If the status of the CR shows &lt;code&gt;InvalidConfig&lt;/code&gt; then there is an incorrect value specified in the Custom Resource manifest&lt;/p&gt;
+&lt;p&gt;Note - The driver status can take some time to migrate from &lt;code&gt;Succeeded&lt;/code&gt; to &lt;code&gt;Running&lt;/code&gt; because of the time taken for the driver pods to completely start up.&lt;br&gt;
+In case some pods are not up and running, the Operator will query for their status for at least an hour before giving up on updating the status of the Custom Resource.&lt;/p&gt;
+&lt;p&gt;You can also check the status of the driver pods by running the command &lt;code&gt;kubectl get pods -n powermax&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Note - Run the command &lt;code&gt;kubectl get csipowermax --all-namespaces&lt;/code&gt; to query for all Custom Resources of the type CSIPowerMax in your cluster&lt;/p&gt;
+&lt;h3 id=&#34;update-custom-resource&#34;&gt;Update Custom Resource&lt;/h3&gt;
+&lt;p&gt;If you want to update the driver installation or fix any issues in the Custom Resource (for e.g. - InValidConfig), then you can update the Custom Resource&lt;br&gt;
+This can be done in multiple ways&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run the command &lt;code&gt;kubectl edit csipowermax powermax -n powermax&lt;/code&gt; and edit any desired field(s)&lt;/li&gt;
+&lt;li&gt;Update the manifest file and run the command &lt;code&gt;kubectl apply -f powermax.yaml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Directly patch the Custom Resource (refer Kubernetes documentation)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once the update has been applied to the Custom Resource, the Operator will try to &lt;code&gt;reconcile&lt;/code&gt; the desired state with the observed state in the cluster and apply required changes (if any) to the various resources part of the driver installation&lt;/p&gt;
+&lt;h3 id=&#34;delete-custom-resource&#34;&gt;Delete Custom Resource&lt;/h3&gt;
+&lt;p&gt;Run the command &lt;code&gt;kubectl delete -f powermax.yaml&lt;/code&gt; to delete the Custom Resource. This will delete the Custom Resource and delete all the driver pods.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: </title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/dell-csi-driver/hpe_driver/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/dell-csi-driver/hpe_driver/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;A Container Storage Interface (&lt;a href=&#34;https://github.com/container-storage-interface/spec&#34;&gt;CSI&lt;/a&gt;) Driver for Kubernetes. The HPE CSI Driver for Kubernetes allows you to use a &lt;a href=&#34;../container_storage_provider/index.md&#34;&gt;Container Storage Provider&lt;/a&gt; (CSP) to perform data management operations on storage resources. The architecture of the CSI driver allows block storage vendors to implement a CSP that follows the &lt;a href=&#34;https://github.com/hpe-storage/container-storage-provider&#34;&gt;specification&lt;/a&gt; (a &lt;a href=&#34;https://developer.hpe.com/api/hpe-nimble-csp/&#34;&gt;browser friendly version&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;The CSI driver architecture allows a complete separation of concerns between upstream Kubernetes core, SIG Storage (CSI owners), CSI driver author (HPE) and the backend CSP developer.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/csi_driver_architecture-1.3.0.png&#34; alt=&#34;HPE CSI Driver Architecture&#34;&gt;&lt;/p&gt;
+&lt;p&gt;!!! tip
+The HPE CSI Driver for Kubernetes is vendor agnostic. Any entity may leverage the driver and provide their own Container Storage Provider.&lt;/p&gt;
+&lt;h2 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h2&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&#34;features-and-capabilities&#34;&gt;Features and capabilities&lt;/h2&gt;
+&lt;p&gt;CSI gradually mature features and capabilities in the specification at the pace of the community. HPE keep a close watch on differentiating features the primary storage family of products may be suitable for implementing in CSI and Kubernetes. HPE experiment early and often. That&amp;rsquo;s why it&amp;rsquo;s sometimes possible to observe a certain feature being available in the CSI driver although it hasn&amp;rsquo;t been announced or isn&amp;rsquo;t documented.&lt;/p&gt;
+&lt;p&gt;Below is the official table for CSI features we track and deem readily available for use after we&amp;rsquo;ve officially tested and validated it in the &lt;a href=&#34;#compatibility_and_support&#34;&gt;platform matrix&lt;/a&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Feature&lt;/th&gt;
+&lt;th&gt;K8s maturity&lt;/th&gt;
+&lt;th&gt;Since K8s version&lt;/th&gt;
+&lt;th&gt;HPE CSI Driver&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Dynamic Provisioning&lt;/td&gt;
+&lt;td&gt;GA&lt;/td&gt;
+&lt;td&gt;1.13&lt;/td&gt;
+&lt;td&gt;1.0.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Raw Block Volume&lt;/td&gt;
+&lt;td&gt;GA&lt;/td&gt;
+&lt;td&gt;1.18&lt;/td&gt;
+&lt;td&gt;1.2.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Volume Expansion&lt;/td&gt;
+&lt;td&gt;Beta&lt;/td&gt;
+&lt;td&gt;1.16&lt;/td&gt;
+&lt;td&gt;1.1.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PVC Data Source&lt;/td&gt;
+&lt;td&gt;GA&lt;/td&gt;
+&lt;td&gt;1.18&lt;/td&gt;
+&lt;td&gt;1.1.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Inline Ephemeral Volumes&lt;/td&gt;
+&lt;td&gt;Beta&lt;/td&gt;
+&lt;td&gt;1.16&lt;/td&gt;
+&lt;td&gt;1.2.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Volume Snapshots&lt;/td&gt;
+&lt;td&gt;Beta&lt;/td&gt;
+&lt;td&gt;1.17&lt;/td&gt;
+&lt;td&gt;1.1.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Volume Limits&lt;/td&gt;
+&lt;td&gt;GA&lt;/td&gt;
+&lt;td&gt;1.17&lt;/td&gt;
+&lt;td&gt;1.2.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Volume Mutator&lt;sup&gt;1&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;N/A&lt;/td&gt;
+&lt;td&gt;N/A&lt;/td&gt;
+&lt;td&gt;1.3.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Generic Ephemeral Volumes&lt;/td&gt;
+&lt;td&gt;Alpha&lt;/td&gt;
+&lt;td&gt;1.19&lt;/td&gt;
+&lt;td&gt;1.3.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Topology&lt;/td&gt;
+&lt;td&gt;GA&lt;/td&gt;
+&lt;td&gt;1.17&lt;/td&gt;
+&lt;td&gt;Future&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;small&gt;&lt;sup&gt;1&lt;/sup&gt; = HPE CSI Driver for Kubernetes specific feature. CSP support may vary.&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;Depending on the CSP, it may support a number of different snapshotting, cloning and restoring operations by taking advantage of &lt;code&gt;StorageClass&lt;/code&gt; parameter overloading. Please see the respective &lt;a href=&#34;../container_storage_provider/index.md&#34;&gt;CSP&lt;/a&gt; for additional functionality.&lt;/p&gt;
+&lt;p&gt;Refer to the &lt;a href=&#34;https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/&#34;&gt;official table&lt;/a&gt; of feature gates in the Kubernetes docs to find availability of beta and alpha features. HPE provide limited support on non-GA CSI features. Please file any issues, questions or feature requests &lt;a href=&#34;https://github.com/hpe-storage/csi-driver/issues&#34;&gt;here&lt;/a&gt;. You may also join our Slack community to chat with HPE folks close to this project. We hang out in &lt;code&gt;#NimbleStorage&lt;/code&gt;, &lt;code&gt;#3par-primera&lt;/code&gt; and &lt;code&gt;#Kubernetes&lt;/code&gt;, sign up at &lt;a href=&#34;https://slack.hpedev.io/&#34;&gt;slack.hpedev.io&lt;/a&gt; and login at &lt;a href=&#34;https://hpedev.slack.com&#34;&gt;hpedev.slack.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;!!! tip
+Familiarize yourself with the basic requirements below for running the CSI driver on your Kubernetes cluster. It&amp;rsquo;s then highly recommended to continue installing the CSI driver with either a &lt;a href=&#34;deployment.md#helm&#34;&gt;Helm chart&lt;/a&gt; or an &lt;a href=&#34;deployment.md#operator&#34;&gt;Operator&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;compatibility-and-support&#34;&gt;Compatibility and support&lt;/h2&gt;
+&lt;p&gt;These are the combinations HPE has tested and can provide official support services around for each of the CSI driver releases. Each &lt;a href=&#34;../container_storage_provider/index.md&#34;&gt;Container Storage Provider&lt;/a&gt; has it&amp;rsquo;s own requirements in terms of storage platform OS and may have other constraints not listed here.&lt;/p&gt;
+&lt;p&gt;!!! note
+For Kubernetes 1.12 and earlier please see &lt;a href=&#34;../flexvolume_driver/index.md&#34;&gt;legacy FlexVolume drivers&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;hpe-csi-driver-for-kubernetes-130&#34;&gt;HPE CSI Driver for Kubernetes 1.3.0&lt;/h4&gt;
+&lt;p&gt;Release highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Kubernetes CSI Sidecar: Volume Mutator&lt;/li&gt;
+&lt;li&gt;Broader ecosystem support&lt;/li&gt;
+&lt;li&gt;Native iSCSI CHAP configuration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Kubernetes&lt;/th&gt;
+    &lt;td&gt;1.15-1.18&lt;sup&gt;1&lt;/sup&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Worker OS&lt;/th&gt;
+    &lt;td&gt;CentOS 7.6, RHEL 7.6, RHCOS 4.3-4.4, Ubuntu 18.04, Ubuntu 20.04
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Data protocol&lt;/th&gt;
+    &lt;td&gt;Fibre Channel, iSCSI &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Platforms&lt;/th&gt;
+    &lt;td&gt;
+      NimbleOS 5.0.10.x, 5.1.4.200-x, 5.2.1.x, 5.3.0.x&lt;br /&gt;
+      3PAR OS 3.3.1&lt;br/&gt;
+      Primera OS 4.0.0, 4.1.0, 4.2.0&lt;sup&gt;2&lt;/sup&gt;&lt;br/&gt;
+    &lt;/td&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Release notes&lt;/th&gt;
+    &lt;td&gt;&lt;a href=https://github.com/hpe-storage/csi-driver/blob/master/release-notes/v1.3.0.md&gt;v1.3.0&lt;/a&gt; on GitHub&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th&gt;Blogs&lt;/th&gt;
+   &lt;td&gt;
+    &lt;a href=&#34;https://community.hpe.com/t5/around-the-storage-block/hpe-csi-driver-for-kubernetes-1-3-0-now-available/ba-p/7099684&#34;&gt;Around The Storage Block&lt;/a&gt; (release)&lt;br/&gt;
+    &lt;a href=&#34;https://developer.hpe.com/blog/ppPAlQ807Ah8QGMNl1YE/tutorial-enabling-remote-copy-using-the-hpe-csi-driver-for-kubernetes-on&#34;&gt;HPE DEV&lt;/a&gt; (Remote copy peer persistence tutorial)&lt;br/&gt;
+    &lt;a href=&#34;https://developer.hpe.com/blog/8nlLVWP1RKFROlvZJDo9/introducing-kubernetes-csi-sidecar-containers-from-hpe&#34;&gt;HPE DEV&lt;/a&gt; (Introducing the volume mutator)&lt;br/&gt;
+   &lt;/td&gt;
+&lt;/table&gt;
+&lt;small&gt;
+ &lt;sup&gt;1&lt;/sup&gt; = For HPE Ezmeral Container Platform and Rancher; Kubernetes clusters must be deployed within the currently supported range of &#34;Worker OS&#34; platforms listed in the above table. See [partner ecosystems](../partners) for other variations.&lt;br /&gt;
+ &lt;sup&gt;2&lt;/sup&gt; = Only FC is supported on Primera OS prior to 4.2.0.
+&lt;/small&gt;
+&lt;h4 id=&#34;hpe-csi-driver-for-kubernetes-120&#34;&gt;HPE CSI Driver for Kubernetes 1.2.0&lt;/h4&gt;
+&lt;p&gt;Release highlights: Support for raw block volumes and inline ephemeral volumes. NFS Server Provisioner in Tech Preview (beta).&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Kubernetes&lt;/th&gt;
+    &lt;td&gt;1.14-1.18&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Worker OS&lt;/th&gt;
+    &lt;td&gt;CentOS 7.6, RHEL 7.6, RHCOS 4.2-4.3, Ubuntu 16.04, Ubuntu 18.04
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Data protocol&lt;/th&gt;
+    &lt;td&gt;Fibre Channel, iSCSI &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Platforms&lt;/th&gt;
+    &lt;td&gt;
+      NimbleOS 5.0.10.x, 5.1.3.1000-x, 5.1.4.200-x, 5.2.1.x&lt;br /&gt;
+      3PAR OS 3.3.1&lt;br/&gt;
+      Primera OS 4.0.0, 4.1.0 (FC only)&lt;br/&gt;
+    &lt;/td&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Release notes&lt;/th&gt;
+    &lt;td&gt;&lt;a href=https://github.com/hpe-storage/csi-driver/blob/master/release-notes/v1.2.0.md&gt;v1.2.0&lt;/a&gt; on GitHub&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th&gt;Blogs&lt;/th&gt;
+   &lt;td&gt;&lt;a href=&#34;https://community.hpe.com/t5/around-the-storage-block/hpe-csi-driver-for-kubernetes-1-2-0-available-now/ba-p/7091977&#34;&gt;Around The Storage Block&lt;/a&gt; (release)&lt;br/&gt;
+       &lt;a href=&#34;https://developer.hpe.com/blog/EE2QnZBXXwi4o7X0E4M0/using-raw-block-and-ephemeral-inline-volumes-on-kubernetes&#34;&gt;HPE DEV&lt;/a&gt; (tutorial for raw block and inline volumes)&lt;br/&gt;
+       &lt;a href=&#34;https://community.hpe.com/t5/around-the-storage-block/tech-preview-network-file-system-server-provisioner-for-hpe-csi/ba-p/7092948&#34;&gt;Around The Storage Block&lt;/a&gt; (NFS Server Provisioner)&lt;br/&gt;
+       &lt;a href=&#34;https://developer.hpe.com/blog/xABwJY56qEfNGMEo1lDj/introducing-a-nfs-server-provisioner-and-pod-monitor-for-the-hpe-csi-dri&#34;&gt;HPE DEV&lt;/a&gt; (tutorial for NFS)
+   &lt;/td&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;hpe-csi-driver-for-kubernetes-111&#34;&gt;HPE CSI Driver for Kubernetes 1.1.1&lt;/h4&gt;
+&lt;p&gt;Release highlights: Support for HPE 3PAR and Primera Container Storage Provider.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Kubernetes&lt;/th&gt;
+    &lt;td&gt;1.13-1.17&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Worker OS&lt;/th&gt;
+    &lt;td&gt;CentOS 7.6, RHEL 7.6, RHCOS 4.2-4.3, Ubuntu 16.04, Ubuntu 18.04
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Data protocol&lt;/th&gt;
+    &lt;td&gt;Fibre Channel, iSCSI &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Platforms&lt;/th&gt;
+    &lt;td&gt;
+      NimbleOS 5.0.8.x, 5.1.3.x, 5.1.4.x&lt;br/&gt;
+      3PAR OS 3.3.1&lt;br/&gt;
+      Primera OS 4.0.0, 4.1.0 (FC only)&lt;br/&gt;
+    &lt;/td&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Release notes&lt;/th&gt;
+    &lt;td&gt;N/A&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th&gt;Blogs&lt;/th&gt;
+   &lt;td&gt;&lt;a href=&#34;https://community.hpe.com/t5/hpe-storage-tech-insiders/hpe-csi-driver-for-kubernetes-1-1-1-and-hpe-3par-and-hpe-primera/ba-p/7086675&#34;&gt;HPE Storage Tech Insiders&lt;/a&gt; (release), &lt;a href=&#34;https://developer.hpe.com/blog/9o7zJkqlX5cErkrzgopL/tutorial-how-to-get-started-with-the-hpe-csi-driver-and-hpe-primera-and-&#34;&gt;HPE DEV&lt;/a&gt; (tutorial for &#34;primera3par&#34; CSP)
+&lt;/table&gt;
+&lt;h4 id=&#34;release-archive&#34;&gt;Release archive&lt;/h4&gt;
+&lt;p&gt;HPE currently supports up to three minor releases of the HPE CSI Driver for Kubernetes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;archive.md&#34;&gt;Unsupported releases&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;known-limitations&#34;&gt;Known limitations&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Always check with the Kubernetes vendor distribution which CSI features are available for use and supported by the vendor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;iscsi-chap-considerations&#34;&gt;iSCSI CHAP considerations&lt;/h2&gt;
+&lt;p&gt;If iSCSI CHAP is being used in the environment, consider the following.&lt;/p&gt;
+&lt;h3 id=&#34;csi-driver-121-and-below&#34;&gt;CSI driver 1.2.1 and below&lt;/h3&gt;
+&lt;p&gt;In version 1.2.1 and below, the CSI driver did not support CHAP natively. CHAP must be enabled manually on the worker nodes before deploying the CSI driver on the cluster. This also needs to be applied to new worker nodes before they join the cluster.&lt;/p&gt;
+&lt;h3 id=&#34;csi-driver-130-and-above&#34;&gt;CSI driver 1.3.0 and above&lt;/h3&gt;
+&lt;p&gt;CHAP is now an optional part of the initial deployment of the driver with parameters passed to Helm or the Operator. For object definitions, the &lt;code&gt;CHAP_USER&lt;/code&gt; and &lt;code&gt;CHAP_PASSWORD&lt;/code&gt; needs to be supplied to the &lt;code&gt;csi-node-driver&lt;/code&gt;. The CHAP username and secret is picked up in the &lt;code&gt;hpenodeinfo&lt;/code&gt; Custom Resource Definition (CRD). The CSP is under contract to create the user if it doesn&amp;rsquo;t exist on the backend.&lt;/p&gt;
+&lt;p&gt;CHAP is a good measure to prevent unauthorized access to iSCSI targets, it does not encrypt data on the wire. CHAP secrets should be at least twelve charcters in length.&lt;/p&gt;
+&lt;h2 id=&#34;kubernetes-feature-gates&#34;&gt;Kubernetes feature gates&lt;/h2&gt;
+&lt;p&gt;Different features mature at different rates. Refer to the &lt;a href=&#34;https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/&#34;&gt;official table&lt;/a&gt; of feature gates in the Kubernetes docs.&lt;/p&gt;
+&lt;p&gt;The following guidelines appliy to which feature gates got introduced as alphas for the corresponding version of Kubernetes. For example, &lt;code&gt;ExpandCSIVolumes&lt;/code&gt; got introduced in 1.14 but is still an alpha in 1.15, hence you need to enable that feature gate in 1.15 as well if you want to use it.&lt;/p&gt;
+&lt;h3 id=&#34;kubernetes-113&#34;&gt;Kubernetes 1.13&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--allow-privileged&lt;/code&gt; flag must be set to true for the API server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;kubernetes-114&#34;&gt;Kubernetes 1.14&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--allow-privileged&lt;/code&gt; flag must be set to true for the API server&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--feature-gates=ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true&lt;/code&gt; feature gate flags must be set to true for both the API server and kubelet for resize support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;kubernetes-115&#34;&gt;Kubernetes 1.15&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--allow-privileged&lt;/code&gt; flag must be set to true for the API server&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--feature-gates=ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true&lt;/code&gt; feature gate flags must be set to true for both the API server and kubelet for resize support&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--feature-gates=CSIInlineVolume=true&lt;/code&gt; feature gate flag must be set to true for both the API server and kubelet for pod inline volumes (Ephemeral Local Volumes) support&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--feature-gates=VolumePVCDataSource=true&lt;/code&gt; feature gate flag must be set to true for both the API server and kubelet for Volume cloning support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;kubernetes-119&#34;&gt;Kubernetes 1.19&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--feature-gates=GenericEphemeralVolume=true&lt;/code&gt; feature gate flags needs to be passed to api-server, scheduler, controller-manager and kubelet to enable Generic Ephemeral Volumes&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Pod Deployment</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;csi-powerscale&#34;&gt;CSI-PowerScale&lt;/h2&gt;
+&lt;p&gt;Test the deployment workflow of a simple pod on PowerScale storage.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Creating a volume:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file &lt;code&gt;pvc.yaml&lt;/code&gt; using sample yaml files located at test/sample_files/&lt;/p&gt;
+&lt;p&gt;Execute the following command to create volume&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code&gt;kubectl get pvc&lt;/code&gt;.
+Note: Verify  system for the new volume&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Attach the volume to Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code&gt;nginx.yaml&lt;/code&gt; using sample yaml files located at test/sample_files/.&lt;/p&gt;
+&lt;p&gt;Execute the following command to mount the volume to kubernetes node&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/nginx.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.
+Note: Verify PowerScale system for host to be part of clients/rootclients field of export created for volume and used by nginx application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml. The sample file for snapshot creation is located at test/sample_files/&lt;/p&gt;
+&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the PowerScale system for new created snapshot.&lt;/p&gt;
+&lt;p&gt;Note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;User can see the snapshots using &lt;code&gt;kubectl get volumesnapshot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Notice that this VolumeSnapshot class has a reference to a snapshotClassName:isilon-snapclass. The CSI Driver for PowerScale installation creates this class as its default snapshot class.&lt;/li&gt;
+&lt;li&gt;You can see its definition using &lt;code&gt;kubectl get volumesnapshotclasses isilon-snapclass -o yaml&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume from Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The following procedure will create a new volume from a given snapshot which is specified in spec dataSource field.&lt;/p&gt;
+&lt;p&gt;The sample file for volume creation from snapshot is located at test/sample_files/&lt;/p&gt;
+&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/volume_from_snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Verify the PowerScale system for new created volume from snapshot.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Delete Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Execute the following command to delete the snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get volumesnapshot
 kubectl delete volumesnapshot testvolclaim1-snap1
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To Unattach the volume from Host&lt;/strong>&lt;/p>
-&lt;p>Delete the nginx application to unattach the volume from host&lt;/p>
-&lt;p>&lt;code>kubectl delete -f nginx.yaml&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To delete the volume&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>kubectl get pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To Unattach the volume from Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Delete the nginx application to unattach the volume from host&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kubectl delete -f nginx.yaml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To delete the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get pvc
 kubectl delete pvc testvolclaim1
 kubectl get pvc
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;/ol>
-&lt;h2 id="csi-unity">CSI-Unity&lt;/h2>
-&lt;p>Test the deployment workflow of a simple pod on Unity storage.&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Verify Unity system for Host&lt;/strong>&lt;/p>
-&lt;p>After helm deployment &lt;code>CSI Driver for Node&lt;/code> will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
-Verify Unity system for new Hosts and Initiators&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Creating a volume:&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>pvc.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;csi-unity&#34;&gt;CSI-Unity&lt;/h2&gt;
+&lt;p&gt;Test the deployment workflow of a simple pod on Unity storage.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Verify Unity system for Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;After helm deployment &lt;code&gt;CSI Driver for Node&lt;/code&gt; will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
+Verify Unity system for new Hosts and Initiators&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Creating a volume:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;pvc.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: testvolclaim1
+  name: testvolclaim1
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvc.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code>kubectl get pvc&lt;/code>.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for the new volume&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Attach the volume to Host&lt;/strong>&lt;/p>
-&lt;p>To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code>nginx.yaml&lt;/code> with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code&gt;kubectl get pvc&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Verify unity system for the new volume&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Attach the volume to Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code&gt;nginx.yaml&lt;/code&gt; with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: Pod
 metadata:
-name: nginx-pv-pod
+  name: nginx-pv-pod
 spec:
-containers:
-- name: task-pv-container
-image: nginx
-ports:
-- containerPort: 80
-name: &amp;quot;http-server&amp;quot;
-volumeMounts:
-- mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
-name: task-pv-storage
-volumes:
-- name: task-pv-storage
-persistentVolumeClaim:
-claimName: testvolclaim1
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to mount the volume to kubernetes node&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/nginx.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Snapshot&lt;/strong>
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: &amp;quot;http-server&amp;quot;
+      volumeMounts:
+        - mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
+          name: task-pv-storage
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: testvolclaim1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to mount the volume to kubernetes node&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/nginx.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Snapshot&lt;/strong&gt;
 The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml.
-The following are the contents of snap.yaml.&lt;/p>
-&lt;p>&lt;em>snap.yaml&lt;/em>&lt;/p>
-&lt;pre>&lt;code>apiVersion: snapshot.storage.k8s.io/v1beta1
+The following are the contents of snap.yaml.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;snap.yaml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
-name: testvolclaim1-snap1
-namespace: default
+  name: testvolclaim1-snap1
+  namespace: default
 spec:
-volumeSnapshotClassName: unity-snapclass
-source:
-persistentVolumeClaimName: testvolclaim1
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/snap.yaml
-&lt;/code>&lt;/pre>&lt;p>The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>:&lt;/p>
-&lt;ul>
-&lt;li>User can see the snapshots using &lt;code>kubectl get volumesnapshot&lt;/code>&lt;/li>
-&lt;li>Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li>
-&lt;li>You can see its definition using &lt;code>kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Delete Snapshot&lt;/strong>&lt;/p>
-&lt;p>Execute the following command to delete the snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl get volumesnapshot
+  volumeSnapshotClassName: unity-snapclass
+  source:
+    persistentVolumeClaimName: testvolclaim1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;User can see the snapshots using &lt;code&gt;kubectl get volumesnapshot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li&gt;
+&lt;li&gt;You can see its definition using &lt;code&gt;kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Delete Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Execute the following command to delete the snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get volumesnapshot
 kubectl delete volumesnapshot testvolclaim1-snap1
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To Unattach the volume from Host&lt;/strong>&lt;/p>
-&lt;p>Delete the Nginx application to unattach the volume from host&lt;/p>
-&lt;p>&lt;code>kubectl delete -f nginx.yaml&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To delete the volume&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>kubectl get pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To Unattach the volume from Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Delete the Nginx application to unattach the volume from host&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kubectl delete -f nginx.yaml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To delete the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get pvc
 kubectl delete pvc testvolclaim1
 kubectl get pvc
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Volume Expansion&lt;/strong>&lt;/p>
-&lt;p>To expand a volume, execute the following command to edit the pvc:&lt;/p>
-&lt;pre>&lt;code>kubectl edit pvc pvc-name
-&lt;/code>&lt;/pre>&lt;p>Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p>
-&lt;pre>&lt;code>spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume Clone&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>clonepvc.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Volume Expansion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To expand a volume, execute the following command to edit the pvc:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl edit pvc pvc-name
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume Clone&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;clonepvc.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: clone-pvc
+    name: clone-pvc
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-dataSource:
-kind: PersistentVolumeClaim
-name: source-pvc
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/clonepvc.yaml
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of clone pvc must be equal to size of source pvc.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, user cannot expand cloned pvc.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume From Snapshot&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>pvcfromsnap.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: source-pvc
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume clone&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/clonepvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Size of clone pvc must be equal to size of source pvc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, user cannot expand cloned pvc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume From Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;pvcfromsnap.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: pvcfromsnap
+    name: pvcfromsnap
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-dataSource:
-kind: VolumeSnapshot
-name: source-snapshot
-apiGroup: snapshot.storage.k8s.io
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvcfromsnap.yaml
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p>
-&lt;/li>
-&lt;/ol></description></item><item><title>Docs: PowerFlex CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</guid><description>
-&lt;h1 id="powerflex-csi">PowerFlex CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p></description></item><item><title>Docs: PowerScale CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/</guid><description>
-&lt;h1 id="powerscale-csi">PowerScale CSI&lt;/h1>
-&lt;h2 id="installation-overview">Installation Overview&lt;/h2>
-&lt;p>Installation in a Kubernetes cluster should be done using the scripts within the &lt;code>dell-csi-helm-installer&lt;/code> directory.&lt;/p>
-&lt;p>The controller section of the Helm chart installs the following components in a Stateful Set:&lt;/p>
-&lt;ul>
-&lt;li>CSI Driver for PowerScale&lt;/li>
-&lt;li>Kubernetes Provisioner, which provisions the provisioning volumes&lt;/li>
-&lt;li>Kubernetes Attacher, which attaches the volumes to the containers&lt;/li>
-&lt;li>Kubernetes Snapshotter, which provides snapshot support&lt;/li>
-&lt;li>Kubernetes Resizer, which provides resize support&lt;/li>
-&lt;/ul>
-&lt;p>The node section of the Helm chart installs the following component in a Daemon Set:&lt;/p>
-&lt;ul>
-&lt;li>CSI Driver for PowerScale&lt;/li>
-&lt;li>Kubernetes Registrar, which handles the driver registration&lt;/li>
-&lt;/ul>
-&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
-&lt;p>Before you install CSI Driver for PowerScale, verify the requirements that are mentioned in this topic are installed and configured.&lt;/p>
-&lt;h4 id="requirements">Requirements&lt;/h4>
-&lt;ul>
-&lt;li>Install Kubernetes.&lt;/li>
-&lt;li>Configure Docker service&lt;/li>
-&lt;li>Install Helm v3&lt;/li>
-&lt;li>Install volume snapshot components&lt;/li>
-&lt;li>Deploy PowerScale driver using Helm&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Note:&lt;/strong> There is no feature gate that needs to be set explicitly for csi drivers from 1.17 onwards. All the required feature gates are either beta/GA.&lt;/p>
-&lt;h2 id="configure-docker-service">Configure Docker service&lt;/h2>
-&lt;p>The mount propagation in Docker must be configured on all Kubernetes nodes before installing CSI Driver for PowerScale.&lt;/p>
-&lt;h3 id="procedure">Procedure&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>Edit the service section of &lt;em>/etc/systemd/system/multi-user.target.wants/docker.service&lt;/em> file as follows:&lt;/p>
-&lt;pre>&lt;code>[Service]
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  dataSource:
+    kind: VolumeSnapshot
+    name: source-snapshot
+    apiGroup: snapshot.storage.k8s.io
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume clone&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvcfromsnap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: PowerFlex CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/flexos/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerflex-csi&#34;&gt;PowerFlex CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: PowerScale CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerscale-csi&#34;&gt;PowerScale CSI&lt;/h1&gt;
+&lt;h2 id=&#34;installation-overview&#34;&gt;Installation Overview&lt;/h2&gt;
+&lt;p&gt;Installation in a Kubernetes cluster should be done using the scripts within the &lt;code&gt;dell-csi-helm-installer&lt;/code&gt; directory.&lt;/p&gt;
+&lt;p&gt;The controller section of the Helm chart installs the following components in a Stateful Set:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CSI Driver for PowerScale&lt;/li&gt;
+&lt;li&gt;Kubernetes Provisioner, which provisions the provisioning volumes&lt;/li&gt;
+&lt;li&gt;Kubernetes Attacher, which attaches the volumes to the containers&lt;/li&gt;
+&lt;li&gt;Kubernetes Snapshotter, which provides snapshot support&lt;/li&gt;
+&lt;li&gt;Kubernetes Resizer, which provides resize support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The node section of the Helm chart installs the following component in a Daemon Set:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CSI Driver for PowerScale&lt;/li&gt;
+&lt;li&gt;Kubernetes Registrar, which handles the driver registration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h3&gt;
+&lt;p&gt;Before you install CSI Driver for PowerScale, verify the requirements that are mentioned in this topic are installed and configured.&lt;/p&gt;
+&lt;h4 id=&#34;requirements&#34;&gt;Requirements&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Install Kubernetes.&lt;/li&gt;
+&lt;li&gt;Configure Docker service&lt;/li&gt;
+&lt;li&gt;Install Helm v3&lt;/li&gt;
+&lt;li&gt;Install volume snapshot components&lt;/li&gt;
+&lt;li&gt;Deploy PowerScale driver using Helm&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; There is no feature gate that needs to be set explicitly for csi drivers from 1.17 onwards. All the required feature gates are either beta/GA.&lt;/p&gt;
+&lt;h2 id=&#34;configure-docker-service&#34;&gt;Configure Docker service&lt;/h2&gt;
+&lt;p&gt;The mount propagation in Docker must be configured on all Kubernetes nodes before installing CSI Driver for PowerScale.&lt;/p&gt;
+&lt;h3 id=&#34;procedure&#34;&gt;Procedure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Edit the service section of &lt;em&gt;/etc/systemd/system/multi-user.target.wants/docker.service&lt;/em&gt; file as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Service]
 ...
 MountFlags=shared
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>Restart the Docker service with systemctl daemon-reload and&lt;/p>
-&lt;pre>&lt;code>systemctl daemon-reload
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart the Docker service with systemctl daemon-reload and&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;systemctl daemon-reload
 systemctl restart docker
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;/ol>
-&lt;h2 id="install-volume-snapshot-components">Install volume snapshot components&lt;/h2>
-&lt;h3 id="install-snapshot-beta-crds">Install Snapshot Beta CRDs&lt;/h3>
-&lt;p>To install snapshot crds specify &lt;code>--snapshot-crd&lt;/code> flag to driver installation script &lt;code>dell-csi-helm-installer/csi-install.sh&lt;/code> during driver installation&lt;/p>
-&lt;h3 id="install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster">&lt;a href="https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster">Install Common Snapshot Controller&lt;/a>, if not already installed for the cluster&lt;/h3>
-&lt;pre>&lt;code>```
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;install-volume-snapshot-components&#34;&gt;Install volume snapshot components&lt;/h2&gt;
+&lt;h3 id=&#34;install-snapshot-beta-crds&#34;&gt;Install Snapshot Beta CRDs&lt;/h3&gt;
+&lt;p&gt;To install snapshot crds specify &lt;code&gt;--snapshot-crd&lt;/code&gt; flag to driver installation script &lt;code&gt;dell-csi-helm-installer/csi-install.sh&lt;/code&gt; during driver installation&lt;/p&gt;
+&lt;h3 id=&#34;install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster&#34;&gt;&lt;a href=&#34;https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster&#34;&gt;Install Common Snapshot Controller&lt;/a&gt;, if not already installed for the cluster&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 ```
-&lt;/code>&lt;/pre>
-&lt;h2 id="install-csi-driver-for-powerscale">Install CSI Driver for PowerScale&lt;/h2>
-&lt;p>Install CSI Driver for PowerScale using this procedure.&lt;/p>
-&lt;p>&lt;em>Before you begin&lt;/em>&lt;/p>
-&lt;ul>
-&lt;li>You must clone the source &lt;a href="https://github.com/dell/csi-isilon">git repository&lt;/a>, ready for below procedure.&lt;/li>
-&lt;li>In the &lt;code>dell-csi-helm-installer&lt;/code> directory, there should be two shell scripts, &lt;em>csi-install.sh&lt;/em> and &lt;em>csi-uninstall.sh&lt;/em>. These scripts handle some of the pre
-and post operations that cannot be performed in the helm chart.&lt;/li>
-&lt;/ul>
-&lt;p>Procedure&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Collect information from the PowerScale Systems like IP address, username and password. Make a note of the value for these parameters as they must be entered in the secret.yaml
-and values file.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Copy the helm/csi-isilon/values.yaml into a new location with name say &lt;em>my-isilon-settings.yaml&lt;/em>, to customize settings for installation.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Edit &lt;em>my-isilon-settings.yaml&lt;/em> to set the following parameters for your installation:&lt;/p>
-&lt;p>The following table lists the primary configurable parameters of the PowerScale driver helm chart and their default values. More detailed information can be
-found in the &lt;a href="helm/csi-isilon/values.yaml">&lt;code>values.yaml&lt;/code>&lt;/a> file in this repository.&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Parameter&lt;/th>
-&lt;th>Description&lt;/th>
-&lt;th>Required&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>isiIP&lt;/td>
-&lt;td>&amp;ldquo;isiIP&amp;rdquo; defines the HTTPs endpoint of the PowerScale OneFS API server&lt;/td>
-&lt;td>true&lt;/td>
-&lt;td>-&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>isiPort&lt;/td>
-&lt;td>&amp;ldquo;isiPort&amp;rdquo; defines the HTTPs port number of the PowerScale OneFS API server&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>8080&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>isiInsecure&lt;/td>
-&lt;td>&amp;ldquo;isiInsecure&amp;rdquo; specifies whether the PowerScale OneFS API server&amp;rsquo;s certificate chain and host name should be verified.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>true&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>isiAccessZone&lt;/td>
-&lt;td>The name of the access zone a volume can be created in&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>System&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>volumeNamePrefix&lt;/td>
-&lt;td>&amp;ldquo;volumeNamePrefix&amp;rdquo; defines a string prepended to each volume created by the CSI driver.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>k8s&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>enableDebug&lt;/td>
-&lt;td>Indicates whether debug level logs should be logged&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>true&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>verbose&lt;/td>
-&lt;td>Indicates what content of the OneFS REST API message should be logged in debug level logs&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>1&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>enableQuota&lt;/td>
-&lt;td>Indicates whether the provisioner should attempt to set (later unset) quota on a newly provisioned volume. This requires SmartQuotas to be enabled.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>true&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>noProbeOnStart&lt;/td>
-&lt;td>Indicates whether the controller/node should probe during initialization&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>false&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>isiPath&lt;/td>
-&lt;td>The default base path for the volumes to be created, this will be used if a storage class does not have the IsiPath parameter specified&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>/ifs/data/csi&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>autoProbe&lt;/td>
-&lt;td>Enable auto probe.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>true&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>nfsV3&lt;/td>
-&lt;td>Specify whether to set the version to v3 when mounting an NFS export. If the value is &amp;ldquo;false&amp;rdquo;, then the default version supported will be used (i.e. the mount command&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>will not explicitly specify &amp;ldquo;-o vers=3&amp;rdquo; option)&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;em>&lt;strong>Storage Class parameters&lt;/strong>&lt;/em>&lt;/td>
-&lt;td>Following parameters are related to Storage Class&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>name&lt;/td>
-&lt;td>&amp;ldquo;storageClass.name&amp;rdquo; defines the name of the storage class to be defined.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>isilon&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>isDefault&lt;/td>
-&lt;td>&amp;ldquo;storageClass.isDefault&amp;rdquo; defines whether the primary storage class should be the default.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>true&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>reclaimPolicy&lt;/td>
-&lt;td>&amp;ldquo;storageClass.reclaimPolicy&amp;rdquo; defines what will happen when a volume is removed from the Kubernetes API. Valid values are &amp;ldquo;Retain&amp;rdquo; and &amp;ldquo;Delete&amp;rdquo;.&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>Delete&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>accessZone&lt;/td>
-&lt;td>The Access Zone where the Volume would be created&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>System&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>AzServiceIP&lt;/td>
-&lt;td>Access Zone service IP if different from isiIP, specify here and refer in storageClass&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>rootClientEnabled&lt;/td>
-&lt;td>When a PVC is being created, it takes the storage class&amp;rsquo; value of &amp;ldquo;storageclass.rootClientEnabled&amp;rdquo;&lt;/td>
-&lt;td>false&lt;/td>
-&lt;td>false&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>Note: User should provide all boolean values with double quotes. This applicable only for my-isilon-settings.yaml. Ex: &amp;ldquo;true&amp;rdquo;/&amp;ldquo;false&amp;rdquo;&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Create namespace&lt;/p>
-&lt;p>Run &lt;code>kubectl create namespace isilon&lt;/code> to create the isilon namespace. Specify the same namespace name while installing the driver.
-Note: CSI PowerScale also supports installation of driver in custom namespace.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Create a secret file for the OneFS credentials by editing the secret.yaml present under helm directory. Replace the values for the username and password parameters.&lt;/p>
-&lt;p>Use the following command to convert username/password to base64 encoded string&lt;/p>
-&lt;pre>&lt;code>echo -n 'admin' | base64
-echo -n 'password' | base64
-&lt;/code>&lt;/pre>&lt;p>Run &lt;code>kubectl create -f secret.yaml&lt;/code> to create the secret.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Install OneFS CA certificates by following the instructions from next section, if you want to validate OneFS API server&amp;rsquo;s certificates. If not, create an empty secret using the
-following command and empty secret should be created for the successful CSI Driver for DELL EMC Powerscale installation.&lt;/p>
-&lt;pre>&lt;code>kubectl create -f emptysecret.yaml
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>Install CSI driver for PowerScale by following the instructions from &lt;a href="dell-csi-helm-installer/README.md">README&lt;/a>&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="certificate-validation-for-onefs-rest-api-calls">Certificate validation for OneFS REST API calls&lt;/h2>
-&lt;p>The CSI driver exposes an install parameter &amp;lsquo;isiInsecure&amp;rsquo; which determines if the driver
-performs client-side verification of the OneFS certificates. The &amp;lsquo;isiInsecure&amp;rsquo; parameter is set to true by default and the driver does not verify the OneFS certificates.&lt;/p>
-&lt;p>If the isiInsecure is set to false, then the secret isilon-certs must contain the CA certificate for OneFS.
-If this secret is an empty secret, then the validation of the certificate fails, and the driver fails to start.&lt;/p>
-&lt;p>If the isiInsecure parameter is set to false and a previous installation attempt to create the empty secret, then this secret must be deleted and re-created using the CA certs.
-If the OneFS certificate is self-signed, then perform the following steps:&lt;/p>
-&lt;h3 id="procedure-1">Procedure&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>To fetch the certificate, run &lt;code>openssl s_client -showcerts -connect &amp;lt;OneFS
-IP&amp;gt; &amp;lt;/dev/null 2&amp;gt;/dev/null | openssl x509 -outform PEM &amp;gt; ca_cert.pem&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>To create the secret, run &lt;code>kubectl create secret generic isilon-certs --from-file=ca_cert.pem -n isilon&lt;/code>&lt;/p>
-&lt;/li>
-&lt;/ol></description></item><item><title>Docs: PowerScale CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</guid><description>
-&lt;h1 id="powerscale-csi">PowerScale CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p></description></item><item><title>Docs: PowerStore CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</guid><description>
-&lt;h1 id="powerstore-csi">PowerStore CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p></description></item><item><title>Docs: Unity CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/unity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/unity/</guid><description>
-&lt;h1 id="unity-csi">Unity CSI&lt;/h1>
-&lt;h2 id="test-deploying-a-simple-pod-with-unity-storage">Test deploying a simple pod with Unity storage&lt;/h2>
-&lt;p>Test the deployment workflow of a simple pod on Unity storage.&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Verify Unity system for Host&lt;/strong>&lt;/p>
-&lt;p>After helm deployment &lt;code>CSI Driver for Node&lt;/code> will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
-Verify Unity system for new Hosts and Initiators&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Creating a volume:&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>pvc.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-csi-driver-for-powerscale&#34;&gt;Install CSI Driver for PowerScale&lt;/h2&gt;
+&lt;p&gt;Install CSI Driver for PowerScale using this procedure.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Before you begin&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You must clone the source &lt;a href=&#34;https://github.com/dell/csi-isilon&#34;&gt;git repository&lt;/a&gt;, ready for below procedure.&lt;/li&gt;
+&lt;li&gt;In the &lt;code&gt;dell-csi-helm-installer&lt;/code&gt; directory, there should be two shell scripts, &lt;em&gt;csi-install.sh&lt;/em&gt; and &lt;em&gt;csi-uninstall.sh&lt;/em&gt;. These scripts handle some of the pre 
+and post operations that cannot be performed in the helm chart.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Procedure&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Collect information from the PowerScale Systems like IP address, username  and password. Make a note of the value for these parameters as they must be entered in the secret.yaml 
+and values file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy the helm/csi-isilon/values.yaml into a new location with name say &lt;em&gt;my-isilon-settings.yaml&lt;/em&gt;, to customize settings for installation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Edit &lt;em&gt;my-isilon-settings.yaml&lt;/em&gt; to set the following parameters for your installation:&lt;/p&gt;
+&lt;p&gt;The following table lists the primary configurable parameters of the PowerScale driver helm chart and their default values. More detailed information can be
+found in the  &lt;a href=&#34;helm/csi-isilon/values.yaml&#34;&gt;&lt;code&gt;values.yaml&lt;/code&gt;&lt;/a&gt; file in this repository.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Required&lt;/th&gt;
+&lt;th&gt;Default&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;isiIP&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;isiIP&amp;rdquo; defines the HTTPs endpoint of the PowerScale OneFS API server&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;isiPort&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;isiPort&amp;rdquo; defines the HTTPs port number of the PowerScale OneFS API server&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;8080&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;isiInsecure&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;isiInsecure&amp;rdquo; specifies whether the PowerScale OneFS API server&amp;rsquo;s certificate chain and host name should be verified.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;isiAccessZone&lt;/td&gt;
+&lt;td&gt;The name of the access zone a volume can be created in&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;System&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;volumeNamePrefix&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;volumeNamePrefix&amp;rdquo; defines a string prepended to each volume created by the CSI driver.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;k8s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enableDebug&lt;/td&gt;
+&lt;td&gt;Indicates whether debug level logs should be logged&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;verbose&lt;/td&gt;
+&lt;td&gt;Indicates what content of the OneFS REST API message should be logged in debug level logs&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enableQuota&lt;/td&gt;
+&lt;td&gt;Indicates whether the provisioner should attempt to set (later unset) quota on a newly provisioned volume. This requires SmartQuotas to be  enabled.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;noProbeOnStart&lt;/td&gt;
+&lt;td&gt;Indicates whether the controller/node should probe during initialization&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;isiPath&lt;/td&gt;
+&lt;td&gt;The default base path for the volumes to be created, this will be used if a storage class does not have the IsiPath parameter specified&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/ifs/data/csi&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;autoProbe&lt;/td&gt;
+&lt;td&gt;Enable auto probe.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;nfsV3&lt;/td&gt;
+&lt;td&gt;Specify whether to set the version to v3 when mounting an NFS export. If the value is &amp;ldquo;false&amp;rdquo;, then the default version supported will be used (i.e. the mount command&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;will not explicitly specify &amp;ldquo;-o vers=3&amp;rdquo; option)&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;&lt;strong&gt;Storage Class parameters&lt;/strong&gt;&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;Following parameters are related to Storage Class&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;name&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;storageClass.name&amp;rdquo; defines the name of the storage class to be defined.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;isilon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;isDefault&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;storageClass.isDefault&amp;rdquo; defines whether the primary storage class should be the default.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;reclaimPolicy&lt;/td&gt;
+&lt;td&gt;&amp;ldquo;storageClass.reclaimPolicy&amp;rdquo; defines what will happen when a volume is removed from the Kubernetes API. Valid values are &amp;ldquo;Retain&amp;rdquo; and &amp;ldquo;Delete&amp;rdquo;.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;Delete&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;accessZone&lt;/td&gt;
+&lt;td&gt;The Access Zone where the Volume would be created&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;System&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;AzServiceIP&lt;/td&gt;
+&lt;td&gt;Access Zone service IP if different from isiIP, specify here and refer in storageClass&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rootClientEnabled&lt;/td&gt;
+&lt;td&gt;When a PVC is being created, it takes the storage class&amp;rsquo; value of &amp;ldquo;storageclass.rootClientEnabled&amp;rdquo;&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Note: User should provide all boolean values with double quotes. This applicable only for my-isilon-settings.yaml. Ex: &amp;ldquo;true&amp;rdquo;/&amp;ldquo;false&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create namespace&lt;/p&gt;
+&lt;p&gt;Run &lt;code&gt;kubectl create namespace isilon&lt;/code&gt; to create the isilon namespace. Specify the same namespace name while installing the driver. 
+Note: CSI PowerScale also supports installation of driver in custom namespace.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a secret file for the OneFS credentials by editing the secret.yaml present under helm directory. Replace the values for the username and password parameters.&lt;/p&gt;
+&lt;p&gt;Use the following command to convert username/password to base64 encoded string&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;echo -n &#39;admin&#39; | base64
+echo -n &#39;password&#39; | base64 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Run &lt;code&gt;kubectl create -f secret.yaml&lt;/code&gt; to create the secret.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install OneFS CA certificates by following the instructions from next section, if you want to validate OneFS API server&amp;rsquo;s certificates. If not, create an empty secret using the 
+following command and empty secret should be created for the successful CSI Driver for DELL EMC Powerscale installation.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f emptysecret.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install CSI driver for PowerScale by following the instructions from &lt;a href=&#34;dell-csi-helm-installer/README.md&#34;&gt;README&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;certificate-validation-for-onefs-rest-api-calls&#34;&gt;Certificate validation for OneFS REST API calls&lt;/h2&gt;
+&lt;p&gt;The CSI driver exposes an install parameter &amp;lsquo;isiInsecure&amp;rsquo; which determines if the driver
+performs client-side verification of the OneFS certificates. The &amp;lsquo;isiInsecure&amp;rsquo; parameter is set to true by default and the driver does not verify the OneFS certificates.&lt;/p&gt;
+&lt;p&gt;If the isiInsecure is set to false, then the secret isilon-certs must contain the CA certificate for OneFS. 
+If this secret is an empty secret, then the validation of the certificate fails, and the driver fails to start.&lt;/p&gt;
+&lt;p&gt;If the isiInsecure parameter is set to false and a previous installation attempt to create the empty secret, then this secret must be deleted and re-created using the CA certs.
+If the OneFS certificate is self-signed, then perform the following steps:&lt;/p&gt;
+&lt;h3 id=&#34;procedure-1&#34;&gt;Procedure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;To fetch the certificate, run &lt;code&gt;openssl s_client -showcerts -connect &amp;lt;OneFS IP&amp;gt; &amp;lt;/dev/null 2&amp;gt;/dev/null | openssl x509 -outform PEM &amp;gt; ca_cert.pem&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To create the secret, run &lt;code&gt;kubectl create secret generic isilon-certs --from-file=ca_cert.pem -n isilon&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: PowerScale CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/isilon/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerscale-csi&#34;&gt;PowerScale CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: PowerStore CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/powerstore/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;powerstore-csi&#34;&gt;PowerStore CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Unity CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/unity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/unity/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;unity-csi&#34;&gt;Unity CSI&lt;/h1&gt;
+&lt;h2 id=&#34;test-deploying-a-simple-pod-with-unity-storage&#34;&gt;Test deploying a simple pod with Unity storage&lt;/h2&gt;
+&lt;p&gt;Test the deployment workflow of a simple pod on Unity storage.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Verify Unity system for Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;After helm deployment &lt;code&gt;CSI Driver for Node&lt;/code&gt; will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
+Verify Unity system for new Hosts and Initiators&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Creating a volume:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;pvc.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: testvolclaim1
+  name: testvolclaim1
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvc.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code>kubectl get pvc&lt;/code>.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for the new volume&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Attach the volume to Host&lt;/strong>&lt;/p>
-&lt;p>To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code>nginx.yaml&lt;/code> with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code&gt;kubectl get pvc&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Verify unity system for the new volume&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Attach the volume to Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code&gt;nginx.yaml&lt;/code&gt; with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: Pod
 metadata:
-name: nginx-pv-pod
+  name: nginx-pv-pod
 spec:
-containers:
-- name: task-pv-container
-image: nginx
-ports:
-- containerPort: 80
-name: &amp;quot;http-server&amp;quot;
-volumeMounts:
-- mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
-name: task-pv-storage
-volumes:
-- name: task-pv-storage
-persistentVolumeClaim:
-claimName: testvolclaim1
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to mount the volume to kubernetes node&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/nginx.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Snapshot&lt;/strong>
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: &amp;quot;http-server&amp;quot;
+      volumeMounts:
+        - mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
+          name: task-pv-storage
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: testvolclaim1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to mount the volume to kubernetes node&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/nginx.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Snapshot&lt;/strong&gt;
 The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml.
-The following are the contents of snap.yaml.&lt;/p>
-&lt;p>&lt;em>snap.yaml&lt;/em>&lt;/p>
-&lt;pre>&lt;code>apiVersion: snapshot.storage.k8s.io/v1beta1
+The following are the contents of snap.yaml.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;snap.yaml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
-name: testvolclaim1-snap1
-namespace: default
+  name: testvolclaim1-snap1
+  namespace: default
 spec:
-volumeSnapshotClassName: unity-snapclass
-source:
-persistentVolumeClaimName: testvolclaim1
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/snap.yaml
-&lt;/code>&lt;/pre>&lt;p>The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>:&lt;/p>
-&lt;ul>
-&lt;li>User can see the snapshots using &lt;code>kubectl get volumesnapshot&lt;/code>&lt;/li>
-&lt;li>Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li>
-&lt;li>You can see its definition using &lt;code>kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Delete Snapshot&lt;/strong>&lt;/p>
-&lt;p>Execute the following command to delete the snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl get volumesnapshot
+  volumeSnapshotClassName: unity-snapclass
+  source:
+    persistentVolumeClaimName: testvolclaim1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;User can see the snapshots using &lt;code&gt;kubectl get volumesnapshot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li&gt;
+&lt;li&gt;You can see its definition using &lt;code&gt;kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Delete Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Execute the following command to delete the snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get volumesnapshot
 kubectl delete volumesnapshot testvolclaim1-snap1
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To Unattach the volume from Host&lt;/strong>&lt;/p>
-&lt;p>Delete the Nginx application to unattach the volume from host&lt;/p>
-&lt;p>&lt;code>kubectl delete -f nginx.yaml&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To delete the volume&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>kubectl get pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To Unattach the volume from Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Delete the Nginx application to unattach the volume from host&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kubectl delete -f nginx.yaml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To delete the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get pvc
 kubectl delete pvc testvolclaim1
 kubectl get pvc
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Volume Expansion&lt;/strong>&lt;/p>
-&lt;p>To expand a volume, execute the following command to edit the pvc:&lt;/p>
-&lt;pre>&lt;code>kubectl edit pvc pvc-name
-&lt;/code>&lt;/pre>&lt;p>Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p>
-&lt;pre>&lt;code>spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume Clone&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>clonepvc.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Volume Expansion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To expand a volume, execute the following command to edit the pvc:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl edit pvc pvc-name
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume Clone&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;clonepvc.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: clone-pvc
+    name: clone-pvc
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-dataSource:
-kind: PersistentVolumeClaim
-name: source-pvc
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/clonepvc.yaml
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of clone pvc must be equal to size of source pvc.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, user cannot expand cloned pvc.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume From Snapshot&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>pvcfromsnap.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: source-pvc
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume clone&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/clonepvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Size of clone pvc must be equal to size of source pvc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, user cannot expand cloned pvc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume From Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;pvcfromsnap.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: pvcfromsnap
+    name: pvcfromsnap
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-dataSource:
-kind: VolumeSnapshot
-name: source-snapshot
-apiGroup: snapshot.storage.k8s.io
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvcfromsnap.yaml
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p>
-&lt;/li>
-&lt;/ol></description></item><item><title>Docs: Unity CSI</title><link>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</guid><description>
-&lt;h1 id="unity-csi">Unity CSI&lt;/h1>
-&lt;p>Product description will be added here&lt;/p>
-&lt;p>&lt;img src="../../assets/img/unity_architecture.png" alt="Unity Architecture">&lt;/p></description></item></channel></rss>
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  dataSource:
+    kind: VolumeSnapshot
+    name: source-snapshot
+    apiGroup: snapshot.storage.k8s.io
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume clone&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvcfromsnap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Unity CSI</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/product-details/unity/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;unity-csi&#34;&gt;Unity CSI&lt;/h1&gt;
+&lt;p&gt;Product description will be added here&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../assets/img/unity_architecture.png&#34; alt=&#34;Unity Architecture&#34;&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

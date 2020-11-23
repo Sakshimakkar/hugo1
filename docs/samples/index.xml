@@ -1,216 +1,245 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DELL Technologies – Code Samples</title><link>https://sakshimakkar.github.io/hugo1/docs/samples/</link><description>Recent content in Code Samples on DELL Technologies</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://sakshimakkar.github.io/hugo1/docs/samples/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Pod Deployment</title><link>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</guid><description>
-&lt;h2 id="csi-powerscale">CSI-PowerScale&lt;/h2>
-&lt;p>Test the deployment workflow of a simple pod on PowerScale storage.&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Creating a volume:&lt;/strong>&lt;/p>
-&lt;p>Create a file &lt;code>pvc.yaml&lt;/code> using sample yaml files located at test/sample_files/&lt;/p>
-&lt;p>Execute the following command to create volume&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvc.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code>kubectl get pvc&lt;/code>.
-Note: Verify system for the new volume&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Attach the volume to Host&lt;/strong>&lt;/p>
-&lt;p>To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code>nginx.yaml&lt;/code> using sample yaml files located at test/sample_files/.&lt;/p>
-&lt;p>Execute the following command to mount the volume to kubernetes node&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/nginx.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.
-Note: Verify PowerScale system for host to be part of clients/rootclients field of export created for volume and used by nginx application.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Snapshot&lt;/strong>&lt;/p>
-&lt;p>The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml. The sample file for snapshot creation is located at test/sample_files/&lt;/p>
-&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/snap.yaml
-&lt;/code>&lt;/pre>&lt;p>The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the PowerScale system for new created snapshot.&lt;/p>
-&lt;p>Note:&lt;/p>
-&lt;ul>
-&lt;li>User can see the snapshots using &lt;code>kubectl get volumesnapshot&lt;/code>&lt;/li>
-&lt;li>Notice that this VolumeSnapshot class has a reference to a snapshotClassName:isilon-snapclass. The CSI Driver for PowerScale installation creates this class as its default snapshot class.&lt;/li>
-&lt;li>You can see its definition using &lt;code>kubectl get volumesnapshotclasses isilon-snapclass -o yaml&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume from Snapshot&lt;/strong>&lt;/p>
-&lt;p>The following procedure will create a new volume from a given snapshot which is specified in spec dataSource field.&lt;/p>
-&lt;p>The sample file for volume creation from snapshot is located at test/sample_files/&lt;/p>
-&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/volume_from_snap.yaml
-&lt;/code>&lt;/pre>&lt;p>Verify the PowerScale system for new created volume from snapshot.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Delete Snapshot&lt;/strong>&lt;/p>
-&lt;p>Execute the following command to delete the snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl get volumesnapshot
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DELL Technologies – Code Samples</title>
+    <link>https://sakshimakkar.github.io/hugo1/docs/samples/</link>
+    <description>Recent content in Code Samples on DELL Technologies</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="https://sakshimakkar.github.io/hugo1/docs/samples/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Pod Deployment</title>
+      <link>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sakshimakkar.github.io/hugo1/docs/samples/pod-deploy/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;csi-powerscale&#34;&gt;CSI-PowerScale&lt;/h2&gt;
+&lt;p&gt;Test the deployment workflow of a simple pod on PowerScale storage.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Creating a volume:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file &lt;code&gt;pvc.yaml&lt;/code&gt; using sample yaml files located at test/sample_files/&lt;/p&gt;
+&lt;p&gt;Execute the following command to create volume&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code&gt;kubectl get pvc&lt;/code&gt;.
+Note: Verify  system for the new volume&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Attach the volume to Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code&gt;nginx.yaml&lt;/code&gt; using sample yaml files located at test/sample_files/.&lt;/p&gt;
+&lt;p&gt;Execute the following command to mount the volume to kubernetes node&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/nginx.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.
+Note: Verify PowerScale system for host to be part of clients/rootclients field of export created for volume and used by nginx application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml. The sample file for snapshot creation is located at test/sample_files/&lt;/p&gt;
+&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the PowerScale system for new created snapshot.&lt;/p&gt;
+&lt;p&gt;Note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;User can see the snapshots using &lt;code&gt;kubectl get volumesnapshot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Notice that this VolumeSnapshot class has a reference to a snapshotClassName:isilon-snapclass. The CSI Driver for PowerScale installation creates this class as its default snapshot class.&lt;/li&gt;
+&lt;li&gt;You can see its definition using &lt;code&gt;kubectl get volumesnapshotclasses isilon-snapclass -o yaml&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume from Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The following procedure will create a new volume from a given snapshot which is specified in spec dataSource field.&lt;/p&gt;
+&lt;p&gt;The sample file for volume creation from snapshot is located at test/sample_files/&lt;/p&gt;
+&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/volume_from_snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Verify the PowerScale system for new created volume from snapshot.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Delete Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Execute the following command to delete the snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get volumesnapshot
 kubectl delete volumesnapshot testvolclaim1-snap1
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To Unattach the volume from Host&lt;/strong>&lt;/p>
-&lt;p>Delete the nginx application to unattach the volume from host&lt;/p>
-&lt;p>&lt;code>kubectl delete -f nginx.yaml&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To delete the volume&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>kubectl get pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To Unattach the volume from Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Delete the nginx application to unattach the volume from host&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kubectl delete -f nginx.yaml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To delete the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get pvc
 kubectl delete pvc testvolclaim1
 kubectl get pvc
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;/ol>
-&lt;h2 id="csi-unity">CSI-Unity&lt;/h2>
-&lt;p>Test the deployment workflow of a simple pod on Unity storage.&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Verify Unity system for Host&lt;/strong>&lt;/p>
-&lt;p>After helm deployment &lt;code>CSI Driver for Node&lt;/code> will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
-Verify Unity system for new Hosts and Initiators&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Creating a volume:&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>pvc.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;csi-unity&#34;&gt;CSI-Unity&lt;/h2&gt;
+&lt;p&gt;Test the deployment workflow of a simple pod on Unity storage.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Verify Unity system for Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;After helm deployment &lt;code&gt;CSI Driver for Node&lt;/code&gt; will create new Host(s) in the Unity system depending on the number of nodes in kubernetes cluster.
+Verify Unity system for new Hosts and Initiators&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Creating a volume:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;pvc.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Use default FC, iSCSI, NFS storage class or create custom storage classes to create volumes. NFS protocol supports ReadWriteOnce, ReadOnlyMany and ReadWriteMany access modes. FC/iSCSI protocol supports ReadWriteOnce access mode only.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Additional 1.5 GB is added to the required size of NFS based volume/pvc. This is due to unity array requirement, which consumes this 1.5 GB for storing metadata. This makes minimum PVC size for NFS protocol via driver as 1.5 GB, which is 3 GB when created directly on the array.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: testvolclaim1
+  name: testvolclaim1
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvc.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code>kubectl get pvc&lt;/code>.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for the new volume&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Attach the volume to Host&lt;/strong>&lt;/p>
-&lt;p>To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code>nginx.yaml&lt;/code> with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, PVC will be created in the default namespace, and the user can see the pvc by executing &lt;code&gt;kubectl get pvc&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Verify unity system for the new volume&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Attach the volume to Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To attach a volume to a host, create a new application(Pod) and use the PVC created above in the Pod. This scenario is explained using the Nginx application. Create &lt;code&gt;nginx.yaml&lt;/code&gt; with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: Pod
 metadata:
-name: nginx-pv-pod
+  name: nginx-pv-pod
 spec:
-containers:
-- name: task-pv-container
-image: nginx
-ports:
-- containerPort: 80
-name: &amp;quot;http-server&amp;quot;
-volumeMounts:
-- mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
-name: task-pv-storage
-volumes:
-- name: task-pv-storage
-persistentVolumeClaim:
-claimName: testvolclaim1
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to mount the volume to kubernetes node&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/nginx.yaml
-&lt;/code>&lt;/pre>&lt;p>Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Snapshot&lt;/strong>
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: &amp;quot;http-server&amp;quot;
+      volumeMounts:
+        - mountPath: &amp;quot;/usr/share/nginx/html&amp;quot;
+          name: task-pv-storage
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: testvolclaim1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to mount the volume to kubernetes node&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/nginx.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Result: After executing the above command, new nginx pod will be successfully created and started in the default namespace.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Verify unity system for volume to be attached to the Host where the nginx container is running&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Snapshot&lt;/strong&gt;
 The following procedure will create a snapshot of the volume in the container using VolumeSnapshot objects defined in snap.yaml.
-The following are the contents of snap.yaml.&lt;/p>
-&lt;p>&lt;em>snap.yaml&lt;/em>&lt;/p>
-&lt;pre>&lt;code>apiVersion: snapshot.storage.k8s.io/v1beta1
+The following are the contents of snap.yaml.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;snap.yaml&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
-name: testvolclaim1-snap1
-namespace: default
+  name: testvolclaim1-snap1
+  namespace: default
 spec:
-volumeSnapshotClassName: unity-snapclass
-source:
-persistentVolumeClaimName: testvolclaim1
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/snap.yaml
-&lt;/code>&lt;/pre>&lt;p>The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>:&lt;/p>
-&lt;ul>
-&lt;li>User can see the snapshots using &lt;code>kubectl get volumesnapshot&lt;/code>&lt;/li>
-&lt;li>Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li>
-&lt;li>You can see its definition using &lt;code>kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Delete Snapshot&lt;/strong>&lt;/p>
-&lt;p>Execute the following command to delete the snapshot&lt;/p>
-&lt;pre>&lt;code>kubectl get volumesnapshot
+  volumeSnapshotClassName: unity-snapclass
+  source:
+    persistentVolumeClaimName: testvolclaim1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/snap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The spec.source section contains the volume that will be snapped in the default namespace. For example, if the volume to be snapped is testvolclaim1, then the created snapshot is named testvolclaim1-snap1. Verify the unity system for new snapshot under the lun section.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;User can see the snapshots using &lt;code&gt;kubectl get volumesnapshot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Notice that this VolumeSnapshot class has a reference to a snapshotClassName:unity-snapclass. The CSI Driver for Unity installation creates this class as its default snapshot class.&lt;/li&gt;
+&lt;li&gt;You can see its definition using &lt;code&gt;kubectl get volumesnapshotclasses unity-snapclass -o yaml&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Delete Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Execute the following command to delete the snapshot&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get volumesnapshot
 kubectl delete volumesnapshot testvolclaim1-snap1
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To Unattach the volume from Host&lt;/strong>&lt;/p>
-&lt;p>Delete the Nginx application to unattach the volume from host&lt;/p>
-&lt;p>&lt;code>kubectl delete -f nginx.yaml&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>To delete the volume&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>kubectl get pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To Unattach the volume from Host&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Delete the Nginx application to unattach the volume from host&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kubectl delete -f nginx.yaml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;To delete the volume&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get pvc
 kubectl delete pvc testvolclaim1
 kubectl get pvc
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Volume Expansion&lt;/strong>&lt;/p>
-&lt;p>To expand a volume, execute the following command to edit the pvc:&lt;/p>
-&lt;pre>&lt;code>kubectl edit pvc pvc-name
-&lt;/code>&lt;/pre>&lt;p>Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p>
-&lt;pre>&lt;code>spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume Clone&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>clonepvc.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Volume Expansion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To expand a volume, execute the following command to edit the pvc:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl edit pvc pvc-name
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then, edit the &amp;ldquo;storage&amp;rdquo; field in spec section with required new size:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi #This field is updated from 5Gi to 10Gi which is required new size
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Make sure the storage class used to create the pvc have allowVolumeExpansion field set to true. The new size cannot be less than the existing size of pvc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume Clone&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;clonepvc.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: clone-pvc
+    name: clone-pvc
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-dataSource:
-kind: PersistentVolumeClaim
-name: source-pvc
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/clonepvc.yaml
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of clone pvc must be equal to size of source pvc.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, user cannot expand cloned pvc.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Create Volume From Snapshot&lt;/strong>&lt;/p>
-&lt;p>Create a file (&lt;code>pvcfromsnap.yaml&lt;/code>) with the following content.&lt;/p>
-&lt;pre>&lt;code>apiVersion: v1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: source-pvc
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume clone&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/clonepvc.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Size of clone pvc must be equal to size of source pvc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, user cannot expand cloned pvc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, deletion of source pvc is not permitted if cloned pvc exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create Volume From Snapshot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a file (&lt;code&gt;pvcfromsnap.yaml&lt;/code&gt;) with the following content.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-name: pvcfromsnap
+    name: pvcfromsnap
 spec:
-accessModes:
-- ReadWriteOnce
-resources:
-requests:
-storage: 5Gi
-dataSource:
-kind: VolumeSnapshot
-name: source-snapshot
-apiGroup: snapshot.storage.k8s.io
-storageClassName: unity
-&lt;/code>&lt;/pre>&lt;p>Execute the following command to create volume clone&lt;/p>
-&lt;pre>&lt;code>kubectl create -f $PWD/pvcfromsnap.yaml
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Note&lt;/strong>: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p>
-&lt;/li>
-&lt;/ol></description></item></channel></rss>
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  dataSource:
+    kind: VolumeSnapshot
+    name: source-snapshot
+    apiGroup: snapshot.storage.k8s.io
+  storageClassName: unity
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Execute the following command to create volume clone&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl create -f $PWD/pvcfromsnap.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Size of created pvc from snapshot must be equal to size of source snapshot.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, pvc created from snapshot can not be expanded.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: For NFS protocol, deletion of source pvc is not permitted if created pvc from snapshot exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

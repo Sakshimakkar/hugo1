@@ -1,36 +1,856 @@
-<!doctype html><html lang=en class=no-js><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=generator content="Hugo 0.72.0"><meta name=ROBOTS content="NOINDEX, NOFOLLOW"><link rel="shortcut icon" href=/favicons/favicon.ico><link rel=apple-touch-icon href=/hugo1/favicons/apple-touch-icon-180x180.png sizes=180x180><link rel=icon type=image/png href=/hugo1/favicons/favicon-16x16.png sizes=16x16><link rel=icon type=image/png href=/hugo1/favicons/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/hugo1/favicons/android-36x36.png sizes=36x36><link rel=icon type=image/png href=/hugo1/favicons/android-48x48.png sizes=48x48><link rel=icon type=image/png href=/hugo1/favicons/android-72x72.png sizes=72x72><link rel=icon type=image/png href=/hugo1/favicons/android-96x96.png sizes=96x96><link rel=icon type=image/png href=/hugo1/favicons/android-144x144.png sizes=144x144><link rel=icon type=image/png href=/hugo1/favicons/android-192x192.png sizes=192x192><title>PowerScale CSI | DELL Technologies</title><meta property="og:title" content="PowerScale CSI"><meta property="og:description" content="PowerScale CSI Installation Overview Installation in a Kubernetes cluster should be done using the scripts within the dell-csi-helm-installer directory.
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.72.0" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/hugo1/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/hugo1/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/hugo1/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/hugo1/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/hugo1/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/hugo1/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/hugo1/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/hugo1/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/hugo1/favicons/android-192x192.png" sizes="192x192">
+
+<title>PowerScale CSI | DELL Technologies</title><meta property="og:title" content="PowerScale CSI" />
+<meta property="og:description" content="PowerScale CSI Installation Overview Installation in a Kubernetes cluster should be done using the scripts within the dell-csi-helm-installer directory.
 The controller section of the Helm chart installs the following components in a Stateful Set:
- CSI Driver for PowerScale Kubernetes Provisioner, which provisions the provisioning volumes Kubernetes Attacher, which attaches the volumes to the containers Kubernetes Snapshotter, which provides snapshot support Kubernetes Resizer, which provides resize support  The node section of the Helm chart installs the following component in a Daemon Set:"><meta property="og:type" content="article"><meta property="og:url" content="https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/"><meta property="article:modified_time" content="2020-10-08T06:57:33-04:00"><meta property="og:site_name" content="DELL Technologies"><meta itemprop=name content="PowerScale CSI"><meta itemprop=description content="PowerScale CSI Installation Overview Installation in a Kubernetes cluster should be done using the scripts within the dell-csi-helm-installer directory.
+ CSI Driver for PowerScale Kubernetes Provisioner, which provisions the provisioning volumes Kubernetes Attacher, which attaches the volumes to the containers Kubernetes Snapshotter, which provides snapshot support Kubernetes Resizer, which provides resize support  The node section of the Helm chart installs the following component in a Daemon Set:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/" />
+<meta property="article:modified_time" content="2020-10-08T06:57:33-04:00" /><meta property="og:site_name" content="DELL Technologies" />
+<meta itemprop="name" content="PowerScale CSI">
+<meta itemprop="description" content="PowerScale CSI Installation Overview Installation in a Kubernetes cluster should be done using the scripts within the dell-csi-helm-installer directory.
 The controller section of the Helm chart installs the following components in a Stateful Set:
- CSI Driver for PowerScale Kubernetes Provisioner, which provisions the provisioning volumes Kubernetes Attacher, which attaches the volumes to the containers Kubernetes Snapshotter, which provides snapshot support Kubernetes Resizer, which provides resize support  The node section of the Helm chart installs the following component in a Daemon Set:"><meta itemprop=dateModified content="2020-10-08T06:57:33-04:00"><meta itemprop=wordCount content="1048"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="PowerScale CSI"><meta name=twitter:description content="PowerScale CSI Installation Overview Installation in a Kubernetes cluster should be done using the scripts within the dell-csi-helm-installer directory.
+ CSI Driver for PowerScale Kubernetes Provisioner, which provisions the provisioning volumes Kubernetes Attacher, which attaches the volumes to the containers Kubernetes Snapshotter, which provides snapshot support Kubernetes Resizer, which provides resize support  The node section of the Helm chart installs the following component in a Daemon Set:">
+<meta itemprop="dateModified" content="2020-10-08T06:57:33-04:00" />
+<meta itemprop="wordCount" content="1048">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PowerScale CSI"/>
+<meta name="twitter:description" content="PowerScale CSI Installation Overview Installation in a Kubernetes cluster should be done using the scripts within the dell-csi-helm-installer directory.
 The controller section of the Helm chart installs the following components in a Stateful Set:
- CSI Driver for PowerScale Kubernetes Provisioner, which provisions the provisioning volumes Kubernetes Attacher, which attaches the volumes to the containers Kubernetes Snapshotter, which provides snapshot support Kubernetes Resizer, which provides resize support  The node section of the Helm chart installs the following component in a Daemon Set:"><link rel=preload href=/hugo1/scss/main.min.b022977dad564c9acdf83386581dadbef9d3bb0d0d0ada624c278786be82102f.css as=style><link href=/hugo1/scss/main.min.b022977dad564c9acdf83386581dadbef9d3bb0d0d0ada624c278786be82102f.css rel=stylesheet integrity><script src=https://code.jquery.com/jquery-3.3.1.min.js integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin=anonymous></script><script src=https://unpkg.com/lunr@2.3.8/lunr.min.js integrity=sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY crossorigin=anonymous></script></head><body class=td-page><header><nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar"><a class=navbar-brand href=/hugo1/><span class=navbar-logo><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zM197.0804 232.033c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zM197.0839 232.0372c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zM197.0839 232.0372c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zM197.0804 177.6188c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zM197.0839 177.623c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zM197.0839 177.623c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zM197.5309 286.4723c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zM197.5344 286.4765c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zM197.5344 286.4765c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zM197.0804 340.5784c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zM197.0839 340.5826c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zM197.0839 340.5826c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="text-uppercase font-weight-bold">DELL Technologies</span></a><div class="td-navbar-nav-scroll ml-md-auto" id=main_navbar><ul class="navbar-nav mt-2 mt-lg-0"><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/hugo1/about/><span>About</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class="nav-link active" href=/hugo1/docs/><span class=active>Documentation</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/hugo1/blog/><span>Blog</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/hugo1/community/><span>Community</span></a></li></ul></div><div class="navbar-nav d-none d-lg-block"><input type=search class="form-control td-search-input" placeholder="&#xf002; Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=/hugo1/offline-search-index.1590f185b76180dd8146d09d6d7a34c01f9c22c2c43f72f36870dcc3e2123e3cb28df14bc02ff1b4c85e15c644ff5260f77f4bb0d6e1e85f08a0ecf4ff36258b.json data-offline-search-base-href=/></div></nav></header><div class="container-fluid td-outer"><div class=td-main><div class="row flex-xl-nowrap"><div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none"><div id=td-sidebar-menu class=td-sidebar__inner><form class="td-sidebar__search d-flex align-items-center"><input type=search class="form-control td-search-input" placeholder="&#xf002; Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=/hugo1/offline-search-index.1590f185b76180dd8146d09d6d7a34c01f9c22c2c43f72f36870dcc3e2123e3cb28df14bc02ff1b4c85e15c644ff5260f77f4bb0d6e1e85f08a0ecf4ff36258b.json data-offline-search-base-href=/>
-<button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type=button data-toggle=collapse data-target=#td-section-nav aria-controls=td-docs-nav aria-expanded=false aria-label="Toggle section navigation"></button></form><nav class="collapse td-sidebar-nav pt-2 pl-4" id=td-section-nav><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/ class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a></li><ul><li class="collapse show" id=hugo1docs><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/getting-started/ class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Installation</a></li><ul><li class="collapse show" id=hugo1docsgetting-started><a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsgetting-startedhelm href=/hugo1/docs/getting-started/helm/>Common helm Installation</a>
-<a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsgetting-startedoperator href=/hugo1/docs/getting-started/operator/>Operator Installation</a><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/getting-started/driver/ class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Driver Installation</a></li><ul><li class="collapse show" id=hugo1docsgetting-starteddriver><a class="td-sidebar-link td-sidebar-link__page active" id=m-hugo1docsgetting-starteddriverisilon href=/hugo1/docs/getting-started/driver/isilon/>PowerScale CSI</a>
-<a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsgetting-starteddriverunity href=/hugo1/docs/getting-started/driver/unity/>Unity CSI</a></li></ul></ul></li></ul></ul><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/product-details/ class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Product Description</a></li><ul><li class=collapse id=hugo1docsproduct-details><a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsproduct-detailsflexos href=/hugo1/docs/product-details/flexos/>PowerFlex CSI</a>
-<a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsproduct-detailsisilon href=/hugo1/docs/product-details/isilon/>PowerScale CSI</a>
-<a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsproduct-detailspowerstore href=/hugo1/docs/product-details/powerstore/>PowerStore CSI</a>
-<a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsproduct-detailsunity href=/hugo1/docs/product-details/unity/>Unity CSI</a></li></ul></ul><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/upgradation/ class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Upgradation</a></li><ul><li class=collapse id=hugo1docsupgradation></li></ul></ul><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/samples/ class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Code Samples</a></li><ul><li class=collapse id=hugo1docssamples><a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docssamplespod-deploy href=/hugo1/docs/samples/pod-deploy/>Pod Deployment</a></li></ul></ul><ul class="td-sidebar-nav__section pr-md-3"><li class=td-sidebar-nav__section-title><a href=/hugo1/docs/dell-csi-driver/ class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">DELL CSI Driver</a></li><ul><li class=collapse id=hugo1docsdell-csi-driver><a class="td-sidebar-link td-sidebar-link__page" id=m-hugo1docsdell-csi-driverhpe_driver href=/hugo1/docs/dell-csi-driver/hpe_driver/></a></li></ul></ul></li></ul></ul></nav></div></div><div class="d-none d-xl-block col-xl-2 td-toc d-print-none"><div class="td-page-meta ml-2 pb-1 pt-2 mb-0"><a href=https://github.com/Sakshimakkar/hugo1/edit/master/content/en/docs/getting-started/Driver/isilon.md target=_blank><i class="fa fa-edit fa-fw"></i>Edit this page</a>
-<a href="https://github.com/Sakshimakkar/hugo1/issues/new?title=PowerScale%20CSI" target=_blank><i class="fab fa-github fa-fw"></i>Create documentation issue</a></div><nav id=TableOfContents><ul><li><a href=#installation-overview>Installation Overview</a><ul><li><a href=#prerequisites>Prerequisites</a></li></ul></li><li><a href=#configure-docker-service>Configure Docker service</a><ul><li><a href=#procedure>Procedure</a></li></ul></li><li><a href=#install-volume-snapshot-components>Install volume snapshot components</a><ul><li><a href=#install-snapshot-beta-crds>Install Snapshot Beta CRDs</a></li><li><a href=#install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster><a href=https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster>Install Common Snapshot Controller</a>, if not already installed for the cluster</a></li></ul></li><li><a href=#install-csi-driver-for-powerscale>Install CSI Driver for PowerScale</a></li><li><a href=#certificate-validation-for-onefs-rest-api-calls>Certificate validation for OneFS REST API calls</a><ul><li><a href=#procedure-1>Procedure</a></li></ul></li></ul></nav></div><main class="col-12 col-md-9 col-xl-8 pl-md-5" role=main><nav aria-label=breadcrumb class="d-none d-md-block d-print-none"><ol class="breadcrumb spb-1"><li class=breadcrumb-item><a href=https://sakshimakkar.github.io/hugo1/docs/>Documentation</a></li><li class=breadcrumb-item><a href=https://sakshimakkar.github.io/hugo1/docs/getting-started/>Installation</a></li><li class=breadcrumb-item><a href=https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/>Driver Installation</a></li><li class="breadcrumb-item active" aria-current=page><a href=https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/>PowerScale CSI</a></li></ol></nav><div class=td-content><h1>PowerScale CSI</h1><h1 id=powerscale-csi>PowerScale CSI</h1><h2 id=installation-overview>Installation Overview</h2><p>Installation in a Kubernetes cluster should be done using the scripts within the <code>dell-csi-helm-installer</code> directory.</p><p>The controller section of the Helm chart installs the following components in a Stateful Set:</p><ul><li>CSI Driver for PowerScale</li><li>Kubernetes Provisioner, which provisions the provisioning volumes</li><li>Kubernetes Attacher, which attaches the volumes to the containers</li><li>Kubernetes Snapshotter, which provides snapshot support</li><li>Kubernetes Resizer, which provides resize support</li></ul><p>The node section of the Helm chart installs the following component in a Daemon Set:</p><ul><li>CSI Driver for PowerScale</li><li>Kubernetes Registrar, which handles the driver registration</li></ul><h3 id=prerequisites>Prerequisites</h3><p>Before you install CSI Driver for PowerScale, verify the requirements that are mentioned in this topic are installed and configured.</p><h4 id=requirements>Requirements</h4><ul><li>Install Kubernetes.</li><li>Configure Docker service</li><li>Install Helm v3</li><li>Install volume snapshot components</li><li>Deploy PowerScale driver using Helm</li></ul><p><strong>Note:</strong> There is no feature gate that needs to be set explicitly for csi drivers from 1.17 onwards. All the required feature gates are either beta/GA.</p><h2 id=configure-docker-service>Configure Docker service</h2><p>The mount propagation in Docker must be configured on all Kubernetes nodes before installing CSI Driver for PowerScale.</p><h3 id=procedure>Procedure</h3><ol><li><p>Edit the service section of <em>/etc/systemd/system/multi-user.target.wants/docker.service</em> file as follows:</p><pre><code>[Service]
+ CSI Driver for PowerScale Kubernetes Provisioner, which provisions the provisioning volumes Kubernetes Attacher, which attaches the volumes to the containers Kubernetes Snapshotter, which provides snapshot support Kubernetes Resizer, which provides resize support  The node section of the Helm chart installs the following component in a Daemon Set:"/>
+
+
+
+
+
+<link rel="preload" href="/hugo1/scss/main.min.bb1ca766e41a0e946ad64cf4afe1ef9cda4b8f5ac09cb29881652bb359f0df3c.css" as="style">
+<link href="/hugo1/scss/main.min.bb1ca766e41a0e946ad64cf4afe1ef9cda4b8f5ac09cb29881652bb359f0df3c.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/hugo1/">
+		<span class="navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zM197.0804 232.033c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zM197.0839 232.0372c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zM197.0839 232.0372c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zM197.0804 177.6188c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zM197.0839 177.623c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zM197.0839 177.623c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zM197.5309 286.4723c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zM197.5344 286.4765c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zM197.5344 286.4765c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zM197.0804 340.5784c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zM197.0839 340.5826c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zM197.0839 340.5826c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="text-uppercase font-weight-bold">DELL Technologies</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/hugo1/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/hugo1/docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/hugo1/blog/" ><span>Blog</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/hugo1/community/" ><span>Community</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/hugo1/offline-search-index.1590f185b76180dd8146d09d6d7a34c01f9c22c2c43f72f36870dcc3e2123e3cb28df14bc02ff1b4c85e15c644ff5260f77f4bb0d6e1e85f08a0ecf4ff36258b.json"
+  data-offline-search-base-href="/"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/hugo1/offline-search-index.1590f185b76180dd8146d09d6d7a34c01f9c22c2c43f72f36870dcc3e2123e3cb28df14bc02ff1b4c85e15c644ff5260f77f4bb0d6e1e85f08a0ecf4ff36258b.json"
+  data-offline-search-base-href="/"
+>
+
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="hugo1docs">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/getting-started/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Installation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="hugo1docsgetting-started">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsgetting-startedhelm" href="/hugo1/docs/getting-started/helm/">Common helm Installation</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsgetting-startedoperator" href="/hugo1/docs/getting-started/operator/">Operator Installation</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/getting-started/driver/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Driver Installation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="hugo1docsgetting-starteddriver">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-hugo1docsgetting-starteddriverisilon" href="/hugo1/docs/getting-started/driver/isilon/">PowerScale CSI</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsgetting-starteddriverunity" href="/hugo1/docs/getting-started/driver/unity/">Unity CSI</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/product-details/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Product Description</a>
+  </li>
+  <ul>
+    <li class="collapse " id="hugo1docsproduct-details">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsproduct-detailsflexos" href="/hugo1/docs/product-details/flexos/">PowerFlex CSI</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsproduct-detailsisilon" href="/hugo1/docs/product-details/isilon/">PowerScale CSI</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsproduct-detailspowerstore" href="/hugo1/docs/product-details/powerstore/">PowerStore CSI</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsproduct-detailsunity" href="/hugo1/docs/product-details/unity/">Unity CSI</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/upgradation/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Upgradation</a>
+  </li>
+  <ul>
+    <li class="collapse " id="hugo1docsupgradation">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/samples/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Code Samples</a>
+  </li>
+  <ul>
+    <li class="collapse " id="hugo1docssamples">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docssamplespod-deploy" href="/hugo1/docs/samples/pod-deploy/">Pod Deployment</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/hugo1/docs/dell-csi-driver/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">DELL CSI Driver</a>
+  </li>
+  <ul>
+    <li class="collapse " id="hugo1docsdell-csi-driver">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-hugo1docsdell-csi-driverhpe_driver" href="/hugo1/docs/dell-csi-driver/hpe_driver/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/Sakshimakkar/hugo1/edit/master/content/en/docs/getting-started/Driver/isilon.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/Sakshimakkar/hugo1/issues/new?title=PowerScale%20CSI" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#installation-overview">Installation Overview</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+      </ul>
+    </li>
+    <li><a href="#configure-docker-service">Configure Docker service</a>
+      <ul>
+        <li><a href="#procedure">Procedure</a></li>
+      </ul>
+    </li>
+    <li><a href="#install-volume-snapshot-components">Install volume snapshot components</a>
+      <ul>
+        <li><a href="#install-snapshot-beta-crds">Install Snapshot Beta CRDs</a></li>
+        <li><a href="#install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster"><a href="https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster">Install Common Snapshot Controller</a>, if not already installed for the cluster</a></li>
+      </ul>
+    </li>
+    <li><a href="#install-csi-driver-for-powerscale">Install CSI Driver for PowerScale</a></li>
+    <li><a href="#certificate-validation-for-onefs-rest-api-calls">Certificate validation for OneFS REST API calls</a>
+      <ul>
+        <li><a href="#procedure-1">Procedure</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://sakshimakkar.github.io/hugo1/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://sakshimakkar.github.io/hugo1/docs/getting-started/">Installation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/">Driver Installation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://sakshimakkar.github.io/hugo1/docs/getting-started/driver/isilon/">PowerScale CSI</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>PowerScale CSI</h1>
+    
+	       
+	<h1 id="powerscale-csi">PowerScale CSI</h1>
+<h2 id="installation-overview">Installation Overview</h2>
+<p>Installation in a Kubernetes cluster should be done using the scripts within the <code>dell-csi-helm-installer</code> directory.</p>
+<p>The controller section of the Helm chart installs the following components in a Stateful Set:</p>
+<ul>
+<li>CSI Driver for PowerScale</li>
+<li>Kubernetes Provisioner, which provisions the provisioning volumes</li>
+<li>Kubernetes Attacher, which attaches the volumes to the containers</li>
+<li>Kubernetes Snapshotter, which provides snapshot support</li>
+<li>Kubernetes Resizer, which provides resize support</li>
+</ul>
+<p>The node section of the Helm chart installs the following component in a Daemon Set:</p>
+<ul>
+<li>CSI Driver for PowerScale</li>
+<li>Kubernetes Registrar, which handles the driver registration</li>
+</ul>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before you install CSI Driver for PowerScale, verify the requirements that are mentioned in this topic are installed and configured.</p>
+<h4 id="requirements">Requirements</h4>
+<ul>
+<li>Install Kubernetes.</li>
+<li>Configure Docker service</li>
+<li>Install Helm v3</li>
+<li>Install volume snapshot components</li>
+<li>Deploy PowerScale driver using Helm</li>
+</ul>
+<p><strong>Note:</strong> There is no feature gate that needs to be set explicitly for csi drivers from 1.17 onwards. All the required feature gates are either beta/GA.</p>
+<h2 id="configure-docker-service">Configure Docker service</h2>
+<p>The mount propagation in Docker must be configured on all Kubernetes nodes before installing CSI Driver for PowerScale.</p>
+<h3 id="procedure">Procedure</h3>
+<ol>
+<li>
+<p>Edit the service section of <em>/etc/systemd/system/multi-user.target.wants/docker.service</em> file as follows:</p>
+<pre><code>[Service]
 ...
 MountFlags=shared
-</code></pre></li><li><p>Restart the Docker service with systemctl daemon-reload and</p><pre><code>systemctl daemon-reload
+</code></pre></li>
+<li>
+<p>Restart the Docker service with systemctl daemon-reload and</p>
+<pre><code>systemctl daemon-reload
 systemctl restart docker
-</code></pre></li></ol><h2 id=install-volume-snapshot-components>Install volume snapshot components</h2><h3 id=install-snapshot-beta-crds>Install Snapshot Beta CRDs</h3><p>To install snapshot crds specify <code>--snapshot-crd</code> flag to driver installation script <code>dell-csi-helm-installer/csi-install.sh</code> during driver installation</p><h3 id=install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster><a href=https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster>Install Common Snapshot Controller</a>, if not already installed for the cluster</h3><pre><code>```
+</code></pre></li>
+</ol>
+<h2 id="install-volume-snapshot-components">Install volume snapshot components</h2>
+<h3 id="install-snapshot-beta-crds">Install Snapshot Beta CRDs</h3>
+<p>To install snapshot crds specify <code>--snapshot-crd</code> flag to driver installation script <code>dell-csi-helm-installer/csi-install.sh</code> during driver installation</p>
+<h3 id="install-common-snapshot-controllerhttpskubernetesioblog20191209kubernetes-1-17-feature-cis-volume-snapshot-betahow-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster-if-not-already-installed-for-the-cluster"><a href="https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/#how-do-i-deploy-support-for-volume-snapshots-on-my-kubernetes-cluster">Install Common Snapshot Controller</a>, if not already installed for the cluster</h3>
+<pre><code>```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 ```
-</code></pre><h2 id=install-csi-driver-for-powerscale>Install CSI Driver for PowerScale</h2><p>Install CSI Driver for PowerScale using this procedure.</p><p><em>Before you begin</em></p><ul><li>You must clone the source <a href=https://github.com/dell/csi-isilon>git repository</a>, ready for below procedure.</li><li>In the <code>dell-csi-helm-installer</code> directory, there should be two shell scripts, <em>csi-install.sh</em> and <em>csi-uninstall.sh</em>. These scripts handle some of the pre
-and post operations that cannot be performed in the helm chart.</li></ul><p>Procedure</p><ol><li><p>Collect information from the PowerScale Systems like IP address, username and password. Make a note of the value for these parameters as they must be entered in the secret.yaml
-and values file.</p></li><li><p>Copy the helm/csi-isilon/values.yaml into a new location with name say <em>my-isilon-settings.yaml</em>, to customize settings for installation.</p></li><li><p>Edit <em>my-isilon-settings.yaml</em> to set the following parameters for your installation:</p><p>The following table lists the primary configurable parameters of the PowerScale driver helm chart and their default values. More detailed information can be
-found in the <a href=helm/csi-isilon/values.yaml><code>values.yaml</code></a> file in this repository.</p><table><thead><tr><th>Parameter</th><th>Description</th><th>Required</th><th>Default</th></tr></thead><tbody><tr><td>isiIP</td><td>&ldquo;isiIP&rdquo; defines the HTTPs endpoint of the PowerScale OneFS API server</td><td>true</td><td>-</td></tr><tr><td>isiPort</td><td>&ldquo;isiPort&rdquo; defines the HTTPs port number of the PowerScale OneFS API server</td><td>false</td><td>8080</td></tr><tr><td>isiInsecure</td><td>&ldquo;isiInsecure&rdquo; specifies whether the PowerScale OneFS API server&rsquo;s certificate chain and host name should be verified.</td><td>false</td><td>true</td></tr><tr><td>isiAccessZone</td><td>The name of the access zone a volume can be created in</td><td>false</td><td>System</td></tr><tr><td>volumeNamePrefix</td><td>&ldquo;volumeNamePrefix&rdquo; defines a string prepended to each volume created by the CSI driver.</td><td>false</td><td>k8s</td></tr><tr><td>enableDebug</td><td>Indicates whether debug level logs should be logged</td><td>false</td><td>true</td></tr><tr><td>verbose</td><td>Indicates what content of the OneFS REST API message should be logged in debug level logs</td><td>false</td><td>1</td></tr><tr><td>enableQuota</td><td>Indicates whether the provisioner should attempt to set (later unset) quota on a newly provisioned volume. This requires SmartQuotas to be enabled.</td><td>false</td><td>true</td></tr><tr><td>noProbeOnStart</td><td>Indicates whether the controller/node should probe during initialization</td><td>false</td><td>false</td></tr><tr><td>isiPath</td><td>The default base path for the volumes to be created, this will be used if a storage class does not have the IsiPath parameter specified</td><td>false</td><td></td></tr><tr><td>/ifs/data/csi</td><td></td><td></td><td></td></tr><tr><td>autoProbe</td><td>Enable auto probe.</td><td>false</td><td>true</td></tr><tr><td>nfsV3</td><td>Specify whether to set the version to v3 when mounting an NFS export. If the value is &ldquo;false&rdquo;, then the default version supported will be used (i.e. the mount command</td><td></td><td></td></tr><tr><td>will not explicitly specify &ldquo;-o vers=3&rdquo; option)</td><td>false</td><td>false</td><td></td></tr><tr><td><em><strong>Storage Class parameters</strong></em></td><td>Following parameters are related to Storage Class</td><td></td><td></td></tr><tr><td>name</td><td>&ldquo;storageClass.name&rdquo; defines the name of the storage class to be defined.</td><td>false</td><td>isilon</td></tr><tr><td>isDefault</td><td>&ldquo;storageClass.isDefault&rdquo; defines whether the primary storage class should be the default.</td><td>false</td><td>true</td></tr><tr><td>reclaimPolicy</td><td>&ldquo;storageClass.reclaimPolicy&rdquo; defines what will happen when a volume is removed from the Kubernetes API. Valid values are &ldquo;Retain&rdquo; and &ldquo;Delete&rdquo;.</td><td>false</td><td>Delete</td></tr><tr><td>accessZone</td><td>The Access Zone where the Volume would be created</td><td>false</td><td>System</td></tr><tr><td>AzServiceIP</td><td>Access Zone service IP if different from isiIP, specify here and refer in storageClass</td><td>false</td><td></td></tr><tr><td>rootClientEnabled</td><td>When a PVC is being created, it takes the storage class&rsquo; value of &ldquo;storageclass.rootClientEnabled&rdquo;</td><td>false</td><td>false</td></tr></tbody></table><p>Note: User should provide all boolean values with double quotes. This applicable only for my-isilon-settings.yaml. Ex: &ldquo;true&rdquo;/&ldquo;false&rdquo;</p></li><li><p>Create namespace</p><p>Run <code>kubectl create namespace isilon</code> to create the isilon namespace. Specify the same namespace name while installing the driver.
-Note: CSI PowerScale also supports installation of driver in custom namespace.</p></li><li><p>Create a secret file for the OneFS credentials by editing the secret.yaml present under helm directory. Replace the values for the username and password parameters.</p><p>Use the following command to convert username/password to base64 encoded string</p><pre><code>echo -n 'admin' | base64
+</code></pre>
+<h2 id="install-csi-driver-for-powerscale">Install CSI Driver for PowerScale</h2>
+<p>Install CSI Driver for PowerScale using this procedure.</p>
+<p><em>Before you begin</em></p>
+<ul>
+<li>You must clone the source <a href="https://github.com/dell/csi-isilon">git repository</a>, ready for below procedure.</li>
+<li>In the <code>dell-csi-helm-installer</code> directory, there should be two shell scripts, <em>csi-install.sh</em> and <em>csi-uninstall.sh</em>. These scripts handle some of the pre 
+and post operations that cannot be performed in the helm chart.</li>
+</ul>
+<p>Procedure</p>
+<ol>
+<li>
+<p>Collect information from the PowerScale Systems like IP address, username  and password. Make a note of the value for these parameters as they must be entered in the secret.yaml 
+and values file.</p>
+</li>
+<li>
+<p>Copy the helm/csi-isilon/values.yaml into a new location with name say <em>my-isilon-settings.yaml</em>, to customize settings for installation.</p>
+</li>
+<li>
+<p>Edit <em>my-isilon-settings.yaml</em> to set the following parameters for your installation:</p>
+<p>The following table lists the primary configurable parameters of the PowerScale driver helm chart and their default values. More detailed information can be
+found in the  <a href="helm/csi-isilon/values.yaml"><code>values.yaml</code></a> file in this repository.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>isiIP</td>
+<td>&ldquo;isiIP&rdquo; defines the HTTPs endpoint of the PowerScale OneFS API server</td>
+<td>true</td>
+<td>-</td>
+</tr>
+<tr>
+<td>isiPort</td>
+<td>&ldquo;isiPort&rdquo; defines the HTTPs port number of the PowerScale OneFS API server</td>
+<td>false</td>
+<td>8080</td>
+</tr>
+<tr>
+<td>isiInsecure</td>
+<td>&ldquo;isiInsecure&rdquo; specifies whether the PowerScale OneFS API server&rsquo;s certificate chain and host name should be verified.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>isiAccessZone</td>
+<td>The name of the access zone a volume can be created in</td>
+<td>false</td>
+<td>System</td>
+</tr>
+<tr>
+<td>volumeNamePrefix</td>
+<td>&ldquo;volumeNamePrefix&rdquo; defines a string prepended to each volume created by the CSI driver.</td>
+<td>false</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>enableDebug</td>
+<td>Indicates whether debug level logs should be logged</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td>Indicates what content of the OneFS REST API message should be logged in debug level logs</td>
+<td>false</td>
+<td>1</td>
+</tr>
+<tr>
+<td>enableQuota</td>
+<td>Indicates whether the provisioner should attempt to set (later unset) quota on a newly provisioned volume. This requires SmartQuotas to be  enabled.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>noProbeOnStart</td>
+<td>Indicates whether the controller/node should probe during initialization</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>isiPath</td>
+<td>The default base path for the volumes to be created, this will be used if a storage class does not have the IsiPath parameter specified</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>/ifs/data/csi</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>autoProbe</td>
+<td>Enable auto probe.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>nfsV3</td>
+<td>Specify whether to set the version to v3 when mounting an NFS export. If the value is &ldquo;false&rdquo;, then the default version supported will be used (i.e. the mount command</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>will not explicitly specify &ldquo;-o vers=3&rdquo; option)</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>Storage Class parameters</strong></em></td>
+<td>Following parameters are related to Storage Class</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>&ldquo;storageClass.name&rdquo; defines the name of the storage class to be defined.</td>
+<td>false</td>
+<td>isilon</td>
+</tr>
+<tr>
+<td>isDefault</td>
+<td>&ldquo;storageClass.isDefault&rdquo; defines whether the primary storage class should be the default.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>reclaimPolicy</td>
+<td>&ldquo;storageClass.reclaimPolicy&rdquo; defines what will happen when a volume is removed from the Kubernetes API. Valid values are &ldquo;Retain&rdquo; and &ldquo;Delete&rdquo;.</td>
+<td>false</td>
+<td>Delete</td>
+</tr>
+<tr>
+<td>accessZone</td>
+<td>The Access Zone where the Volume would be created</td>
+<td>false</td>
+<td>System</td>
+</tr>
+<tr>
+<td>AzServiceIP</td>
+<td>Access Zone service IP if different from isiIP, specify here and refer in storageClass</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>rootClientEnabled</td>
+<td>When a PVC is being created, it takes the storage class&rsquo; value of &ldquo;storageclass.rootClientEnabled&rdquo;</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>Note: User should provide all boolean values with double quotes. This applicable only for my-isilon-settings.yaml. Ex: &ldquo;true&rdquo;/&ldquo;false&rdquo;</p>
+</li>
+<li>
+<p>Create namespace</p>
+<p>Run <code>kubectl create namespace isilon</code> to create the isilon namespace. Specify the same namespace name while installing the driver. 
+Note: CSI PowerScale also supports installation of driver in custom namespace.</p>
+</li>
+<li>
+<p>Create a secret file for the OneFS credentials by editing the secret.yaml present under helm directory. Replace the values for the username and password parameters.</p>
+<p>Use the following command to convert username/password to base64 encoded string</p>
+<pre><code>echo -n 'admin' | base64
 echo -n 'password' | base64 
-</code></pre><p>Run <code>kubectl create -f secret.yaml</code> to create the secret.</p></li><li><p>Install OneFS CA certificates by following the instructions from next section, if you want to validate OneFS API server&rsquo;s certificates. If not, create an empty secret using the
-following command and empty secret should be created for the successful CSI Driver for DELL EMC Powerscale installation.</p><pre><code>kubectl create -f emptysecret.yaml
-</code></pre></li><li><p>Install CSI driver for PowerScale by following the instructions from <a href=dell-csi-helm-installer/README.md>README</a></p></li></ol><h2 id=certificate-validation-for-onefs-rest-api-calls>Certificate validation for OneFS REST API calls</h2><p>The CSI driver exposes an install parameter &lsquo;isiInsecure&rsquo; which determines if the driver
-performs client-side verification of the OneFS certificates. The &lsquo;isiInsecure&rsquo; parameter is set to true by default and the driver does not verify the OneFS certificates.</p><p>If the isiInsecure is set to false, then the secret isilon-certs must contain the CA certificate for OneFS.
-If this secret is an empty secret, then the validation of the certificate fails, and the driver fails to start.</p><p>If the isiInsecure parameter is set to false and a previous installation attempt to create the empty secret, then this secret must be deleted and re-created using the CA certs.
-If the OneFS certificate is self-signed, then perform the following steps:</p><h3 id=procedure-1>Procedure</h3><ol><li><p>To fetch the certificate, run <code>openssl s_client -showcerts -connect &lt;OneFS
-IP> &lt;/dev/null 2>/dev/null | openssl x509 -outform PEM > ca_cert.pem</code></p></li><li><p>To create the secret, run <code>kubectl create secret generic isilon-certs --from-file=ca_cert.pem -n isilon</code></p></li></ol><div class="text-muted mt-5 pt-3 border-top">Last modified October 8, 2020: <a href=https://github.com/Sakshimakkar/hugo1/commit/c002d4ff3310c526475d1ee269863a46f46aec6d>updates (c002d4f)</a></div></div></main></div></div><footer class="bg-dark py-5 row d-print-none"><div class="container-fluid mx-sm-5"><div class=row><div class="col-6 col-sm-4 text-xs-center order-sm-2"><ul class="list-inline mb-0"><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="User mailing list" aria-label="User mailing list"><a class=text-white target=_blank href=https://example.org/mail><i class="fa fa-envelope"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title=Twitter aria-label=Twitter><a class=text-white target=_blank href=https://example.org/twitter><i class="fab fa-twitter"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Stack Overflow" aria-label="Stack Overflow"><a class=text-white target=_blank href=https://example.org/stack><i class="fab fa-stack-overflow"></i></a></li></ul></div><div class="col-6 col-sm-4 text-right text-xs-center order-sm-3"><ul class="list-inline mb-0"><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title=GitHub aria-label=GitHub><a class=text-white target=_blank href=https://github.com/google/docsy><i class="fab fa-github"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title=Slack aria-label=Slack><a class=text-white target=_blank href=https://example.org/slack><i class="fab fa-slack"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Developer mailing list" aria-label="Developer mailing list"><a class=text-white target=_blank href=https://example.org/mail><i class="fa fa-envelope"></i></a></li></ul></div><div class="col-12 col-sm-4 text-center py-2 order-sm-2"><small class=text-white>&copy; 2020 The Docsy Authors All Rights Reserved</small>
-<small class=ml-1><a href=https://policies.google.com/privacy target=_blank>Privacy Policy</a></small><p class=mt-2><a href=/hugo1/about/>About Goldydocs</a></p></div></div></div></footer></div><script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js integrity=sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49 crossorigin=anonymous></script><script src=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js integrity=sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy crossorigin=anonymous></script><script src=/hugo1/js/main.min.7afee248b9b3c1d4438c6841cc272ae0ac1f81a3ee5c0ed939f1d57c18de3f7d.js integrity="sha256-ev7iSLmzwdRDjGhBzCcq4KwfgaPuXA7ZOfHVfBjeP30=" crossorigin=anonymous></script></body></html>
+</code></pre><p>Run <code>kubectl create -f secret.yaml</code> to create the secret.</p>
+</li>
+<li>
+<p>Install OneFS CA certificates by following the instructions from next section, if you want to validate OneFS API server&rsquo;s certificates. If not, create an empty secret using the 
+following command and empty secret should be created for the successful CSI Driver for DELL EMC Powerscale installation.</p>
+<pre><code>kubectl create -f emptysecret.yaml
+</code></pre></li>
+<li>
+<p>Install CSI driver for PowerScale by following the instructions from <a href="dell-csi-helm-installer/README.md">README</a></p>
+</li>
+</ol>
+<h2 id="certificate-validation-for-onefs-rest-api-calls">Certificate validation for OneFS REST API calls</h2>
+<p>The CSI driver exposes an install parameter &lsquo;isiInsecure&rsquo; which determines if the driver
+performs client-side verification of the OneFS certificates. The &lsquo;isiInsecure&rsquo; parameter is set to true by default and the driver does not verify the OneFS certificates.</p>
+<p>If the isiInsecure is set to false, then the secret isilon-certs must contain the CA certificate for OneFS. 
+If this secret is an empty secret, then the validation of the certificate fails, and the driver fails to start.</p>
+<p>If the isiInsecure parameter is set to false and a previous installation attempt to create the empty secret, then this secret must be deleted and re-created using the CA certs.
+If the OneFS certificate is self-signed, then perform the following steps:</p>
+<h3 id="procedure-1">Procedure</h3>
+<ol>
+<li>
+<p>To fetch the certificate, run <code>openssl s_client -showcerts -connect &lt;OneFS IP&gt; &lt;/dev/null 2&gt;/dev/null | openssl x509 -outform PEM &gt; ca_cert.pem</code></p>
+</li>
+<li>
+<p>To create the secret, run <code>kubectl create secret generic isilon-certs --from-file=ca_cert.pem -n isilon</code></p>
+</li>
+</ol>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified October 8, 2020: <a  href="https://github.com/Sakshimakkar/hugo1/commit/c002d4ff3310c526475d1ee269863a46f46aec6d">updates (c002d4f)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="User mailing list" aria-label="User mailing list">
+    <a class="text-white" target="_blank" href="https://example.org/mail">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://example.org/twitter">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Stack Overflow" aria-label="Stack Overflow">
+    <a class="text-white" target="_blank" href="https://example.org/stack">
+      <i class="fab fa-stack-overflow"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/google/docsy">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" href="https://example.org/slack">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Developer mailing list" aria-label="Developer mailing list">
+    <a class="text-white" target="_blank" href="https://example.org/mail">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The Docsy Authors All Rights Reserved</small>
+        <small class="ml-1"><a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a></small>
+	
+		<p class="mt-2"><a href="/hugo1/about/">About Goldydocs</a></p>
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+<script src="/hugo1/js/main.min.7afee248b9b3c1d4438c6841cc272ae0ac1f81a3ee5c0ed939f1d57c18de3f7d.js" integrity="sha256-ev7iSLmzwdRDjGhBzCcq4KwfgaPuXA7ZOfHVfBjeP30=" crossorigin="anonymous"></script>
+
+
+
+  </body>
+</html>
