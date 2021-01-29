@@ -100,8 +100,8 @@ version = "master"
 url = "https://sakshimakkar.github.io/hugo1/"
 
 [[params.versions]]
-version = "v1"
-url = "https://v1.sakshimakkar.github.io/hugo1/"
+version = "v2"
+url = "https://v2.sakshimakkar.github.io/hugo1/"
 
 # Specify a value here if your content directory is not in your repo's root directory
 # github_subdir = ""
